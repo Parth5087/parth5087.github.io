@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parth Patel | Flutter & Mobile AI Engineer</title>
+  <meta name="description" content="Portfolio of Parth Patel - Flutter Developer & Mobile AI Specialist building high-performance cross-platform apps and Edge ML solutions." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg-dark: #080c16;
+      --bg-card: rgba(16, 24, 44, 0.75);
+      --bg-card-hover: rgba(23, 34, 62, 0.9);
+      --primary: #00d2ff;
+      --secondary: #7928ca;
+      --accent: #00f2fe;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-glass: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(0, 210, 255, 0.3);
+      --gradient-main: linear-gradient(135deg, #00d2ff 0%, #7928ca 100%);
+      --gradient-glow: radial-gradient(circle at 50% 0%, rgba(0, 210, 255, 0.15) 0%, transparent 70%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(0, 210, 255, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(121, 40, 202, 0.06) 0%, transparent 40%);
+      background-attachment: fixed;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      backdrop-filter: blur(16px);
+      background: rgba(8, 12, 22, 0.85);
+      border-bottom: 1px solid var(--border-glass);
+      transition: all 0.3s ease;
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text-main);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo span {
+      background: var(--gradient-main);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-socials {
+      display: flex;
+      gap: 16px;
+    }
+
+    .social-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .social-btn:hover {
+      background: var(--primary);
+      color: #080c16;
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 100px;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 210, 255, 0.1);
+      border: 1px solid rgba(0, 210, 255, 0.3);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.9); }
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      letter-spacing: -1.5px;
+    }
+
+    .gradient-text {
+      background: var(--gradient-main);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 13px 26px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--gradient-main);
+      color: #080c16;
+      border: none;
+      font-weight: 700;
+      box-shadow: 0 4px 20px rgba(0, 210, 255, 0.25);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 6px 28px rgba(0, 210, 255, 0.45);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+    }
+
+    /* Section Headers */
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-tag {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 2.3rem;
+      font-weight: 800;
+      margin-bottom: 40px;
+      letter-spacing: -0.5px;
+    }
+
+    /* Project Card */
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: 20px;
+      padding: 36px;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-main);
+      opacity: 0.7;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-accent);
+      box-shadow: 0 16px 40px rgba(0, 210, 255, 0.08);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .project-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(0, 210, 255, 0.12);
+      color: var(--primary);
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .project-desc {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      margin-bottom: 24px;
+      line-height: 1.7;
+    }
+
+    .project-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .feat-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+    }
+
+    .feat-item i {
+      color: var(--primary);
+      margin-top: 4px;
+    }
+
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .tag {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-glass);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.25s ease;
+    }
+
+    .skill-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-3px);
+    }
+
+    .skill-icon {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+
+    .skill-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .skill-list {
+      list-style: none;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+
+    /* Contact Section */
+    .contact-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: 24px;
+      padding: 48px;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .contact-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .contact-text {
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      font-size: 1.05rem;
+    }
+
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-glass);
+      padding: 36px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero-title { font-size: 2.6rem; }
+      .nav-links { display: none; }
+      .project-card { padding: 24px; }
+      .contact-box { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="#" class="logo">
+        <i class="fa-solid fa-code"></i> Parth<span>.dev</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-socials">
+        <a href="https://github.com/Parth5087" target="_blank" class="social-btn" title="GitHub">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/parth-patel-49233b217/" target="_blank" class="social-btn" title="LinkedIn">
+          <i class="fa-brands fa-linkedin-in"></i>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="about">
+    <div class="container">
+      <div class="hero-content">
+        <div class="status-badge">
+          <span class="status-dot"></span> Available for Opportunities
+        </div>
+        <h1 class="hero-title">
+          Hi, I'm <span class="gradient-text">Parth Patel</span><br />
+          Flutter & Mobile AI Engineer
+        </h1>
+        <p class="hero-subtitle">
+          Passionate mobile developer specializing in high-performance cross-platform Flutter applications, on-device Edge Machine Learning, TensorFlow Lite, and Clean Architecture (BLoC).
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">
+            <i class="fa-solid fa-rocket"></i> View Featured Work
+          </a>
+          <a href="https://www.linkedin.com/in/parth-patel-49233b217/" target="_blank" class="btn btn-secondary">
+            <i class="fa-brands fa-linkedin"></i> Connect on LinkedIn
+          </a>
+          <a href="https://github.com/Parth5087" target="_blank" class="btn btn-secondary">
+            <i class="fa-brands fa-github"></i> GitHub Profile
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Project -->
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="section-tag">Featured Engineering Showcase</div>
+      <h2 class="section-title">Key Projects</h2>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div>
+            <h3 class="project-title">
+              📸 AI Face Attendance (AIFace)
+              <span class="badge">Edge AI & Computer Vision</span>
+            </h3>
+          </div>
+          <a href="https://github.com/Parth5087/ai-face-attendance" target="_blank" class="btn btn-primary" style="padding: 9px 18px; font-size: 0.85rem;">
+            <i class="fa-brands fa-github"></i> View Repository
+          </a>
+        </div>
+
+        <p class="project-desc">
+          An enterprise-grade, 100% offline biometric facial recognition attendance system for Android & iOS. Built with Flutter, Google ML Kit, and TensorFlow Lite (MobileFaceNet). Features high-speed face detection (~18ms), 192-dimensional embedding extraction, and multi-vector anti-spoofing liveness verification.
+        </p>
+
+        <div class="project-features">
+          <div class="feat-item">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span><strong>Anti-Spoofing:</strong> Defends against photo prints & screen attacks via eye-blink and texture classification.</span>
+          </div>
+          <div class="feat-item">
+            <i class="fa-solid fa-bolt"></i>
+            <span><strong>On-Device Inference:</strong> Runs locally with zero cloud latency and total privacy compliance.</span>
+          </div>
+          <div class="feat-item">
+            <i class="fa-solid fa-cubes"></i>
+            <span><strong>BLoC Architecture:</strong> Predictable, reactive state management separating business logic from UI.</span>
+          </div>
+          <div class="feat-item">
+            <i class="fa-solid fa-fingerprint"></i>
+            <span><strong>High Precision:</strong> Cosine distance matching with calibrated threshold for low false matches (<0.1%).</span>
+          </div>
+        </div>
+
+        <div class="tech-tags">
+          <span class="tag">Flutter</span>
+          <span class="tag">Dart</span>
+          <span class="tag">TensorFlow Lite</span>
+          <span class="tag">Google ML Kit</span>
+          <span class="tag">MobileFaceNet</span>
+          <span class="tag">BLoC Pattern</span>
+          <span class="tag">Clean Architecture</span>
+          <span class="tag">CameraX / AVFoundation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Matrix -->
+  <section class="section" id="skills">
+    <div class="container">
+      <div class="section-tag">Technical Competencies</div>
+      <h2 class="section-title">Skills & Technologies</h2>
+
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+          <h3 class="skill-title">Mobile Development</h3>
+          <ul class="skill-list">
+            <li>Flutter & Dart (Expert)</li>
+            <li>Android (Java/Kotlin Basics)</li>
+            <li>iOS (Swift / Xcode)</li>
+            <li>Custom Canvas Painters & Animations</li>
+            <li>Cross-Platform Optimization</li>
+          </ul>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fa-solid fa-brain"></i></div>
+          <h3 class="skill-title">Edge AI & Computer Vision</h3>
+          <ul class="skill-list">
+            <li>TensorFlow Lite (TFLite)</li>
+            <li>Google ML Kit (Face / Object)</li>
+            <li>MobileFaceNet Feature Embeddings</li>
+            <li>Liveness & Anti-Spoofing Defense</li>
+            <li>Real-time Camera Frame Ingestion</li>
+          </ul>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fa-solid fa-layer-group"></i></div>
+          <h3 class="skill-title">Architecture & State</h3>
+          <ul class="skill-list">
+            <li>BLoC / Cubit Architecture</li>
+            <li>Clean Architecture (Data, Domain, Presentation)</li>
+            <li>Provider / Dependency Injection</li>
+            <li>Reactive Streams (RxDart / Streams)</li>
+            <li>Repository Pattern</li>
+          </ul>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fa-solid fa-toolbox"></i></div>
+          <h3 class="skill-title">Tools & Infrastructure</h3>
+          <ul class="skill-list">
+            <li>Git & GitHub Version Control</li>
+            <li>RESTful APIs & JSON Serialization</li>
+            <li>Shared Preferences / SQLite</li>
+            <li>Firebase Suite (Auth, Firestore)</li>
+            <li>CI/CD & App Deployment</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="contact-box">
+        <h2 class="contact-title">Let's Connect & Build Together</h2>
+        <p class="contact-text">
+          I'm actively open to full-time roles, freelance projects, and innovative mobile engineering collaborations. Feel free to reach out directly!
+        </p>
+        <div class="contact-buttons">
+          <a href="https://www.linkedin.com/in/parth-patel-49233b217/" target="_blank" class="btn btn-primary">
+            <i class="fa-brands fa-linkedin"></i> Message on LinkedIn
+          </a>
+          <a href="https://github.com/Parth5087" target="_blank" class="btn btn-secondary">
+            <i class="fa-brands fa-github"></i> Follow on GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Parth Patel. Built with modern web standards and hosted on GitHub Pages.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
