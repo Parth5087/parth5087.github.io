@@ -1210,8 +1210,11 @@
           <a href="https://github.com/Parth5087" target="_blank" class="btn btn-outline">
             <i class="fa-brands fa-github"></i> Explore GitHub
           </a>
+          <a href="mailto:parthpatel5087@gmail.com" class="btn btn-outline">
+            <i class="fa-solid fa-envelope"></i> Send Email
+          </a>
           <button class="btn btn-outline" onclick="copyEmail()">
-            <i class="fa-solid fa-copy"></i> <span id="email-btn-text">Copy Email</span>
+            <i class="fa-solid fa-copy"></i> <span id="email-btn-text">Copy (parthpatel5087@gmail.com)</span>
           </button>
         </div>
       </div>
@@ -1336,7 +1339,7 @@
 
     // 4. Copy Email Action
     function copyEmail() {
-      const email = 'parth.p@gatetouch.com';
+      const email = 'parthpatel5087@gmail.com';
       navigator.clipboard.writeText(email).then(() => {
         const toast = document.getElementById('copy-toast');
         toast.classList.add('show');
