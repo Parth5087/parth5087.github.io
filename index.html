@@ -33,41 +33,37 @@
   --card:linear-gradient(180deg,rgba(255,255,255,.045) 0%,rgba(255,255,255,.012) 100%);
   --card-solid:#111115;
   --elevated:#18181d;
-  --ink:#fafafa;
-  --ink-2:#d4d4d8;
-  --mut:#82828b;
-  --line:rgba(255,255,255,.09);
-  --line-hi:rgba(255,255,255,.22);
-  --silver:linear-gradient(180deg,#ffffff 20%,#94949e 100%);
-  --btn-bg:#fafafa;
+  --ink:#ededed;
+  --ink-2:#a1a1a6;
+  --mut:#85858b;
+  --line:rgba(237,237,237,.08);
+  --line-hi:rgba(237,237,237,.18);
+  --btn-bg:#ededed;
   --btn-ink:#09090b;
-  --live:#22c55e;
+  --live:#4cc38a;
   --accent:#e05e3c;
-  --accent-glow:rgba(224,94,60,.16);
-  --sh:0 24px 60px -28px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.06);
+  --sh:0 20px 48px -28px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.05);
   --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
   --ease:cubic-bezier(0.22,1,0.36,1);
   --mw:1180px;
 }
 html[data-theme=light]{
-  --bg:#f5f5f7;
-  --bg-2:#ebebf0;
-  --card:linear-gradient(180deg,#ffffff 0%,#fafafa 100%);
+  --bg:#fafafa;
+  --bg-2:#f4f4f5;
+  --card:#ffffff;
   --card-solid:#ffffff;
-  --elevated:#efeef3;
-  --ink:#1d1d1f;
-  --ink-2:#424245;
-  --mut:#6e6e73;
-  --line:rgba(0,0,0,.08);
-  --line-hi:rgba(0,0,0,.18);
-  --silver:linear-gradient(180deg,#1d1d1f 25%,#515154 100%);
-  --btn-bg:#1d1d1f;
+  --elevated:#f4f4f5;
+  --ink:#171717;
+  --ink-2:#525252;
+  --mut:#737373;
+  --line:rgba(23,23,23,.08);
+  --line-hi:rgba(23,23,23,.18);
+  --btn-bg:#171717;
   --btn-ink:#ffffff;
   --live:#16a34a;
   --accent:#d95a38;
-  --accent-glow:rgba(217,90,56,.10);
-  --sh:0 16px 40px -22px rgba(0,0,0,.12),0 1px 3px rgba(0,0,0,.04);
+  --sh:0 12px 32px -20px rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,.04);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:88px;background:var(--bg);color:var(--ink)}
@@ -110,64 +106,59 @@ html[data-theme=light] .nav{background:rgba(255,255,255,.9);box-shadow:0 10px 28
 .btn.pri:hover{opacity:.9}
 .btn.sm{height:36px;padding:0 15px;font-size:13px}
 
-/* Bento Card + Subtle Spotlight Border */
-.bcard{position:relative;border-radius:20px;background:var(--card);border:1px solid var(--line);box-shadow:var(--sh);overflow:hidden;transition:transform .28s var(--ease),border-color .25s var(--ease)}
-.bcard::before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;opacity:0;transition:opacity .3s var(--ease);background:radial-gradient(380px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.08),transparent 70%)}
-html[data-theme=light] .bcard::before{background:radial-gradient(380px circle at var(--mx,50%) var(--my,50%),rgba(0,0,0,.045),transparent 70%)}
-.bcard:hover{border-color:var(--line-hi);transform:translateY(-3px)}
+/* Bento Card — Quiet Surface + Spotlight Border on 4px Grid */
+.bcard{position:relative;border-radius:16px;background:var(--card);border:1px solid var(--line);box-shadow:var(--sh);overflow:hidden;transition:transform .24s var(--ease),border-color .24s var(--ease)}
+.bcard::before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;opacity:0;transition:opacity .28s var(--ease);background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.06),transparent 70%)}
+html[data-theme=light] .bcard::before{background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%),rgba(0,0,0,.035),transparent 70%)}
+.bcard:hover{border-color:var(--line-hi);transform:translate3d(0,-2px,0)}
 .bcard:hover::before{opacity:1}
 
-/* Hero */
+/* Hero — Calm Typography + Architectural Grid-Mesh Silhouette Stage */
 main{position:relative;z-index:2}
-.hero{padding:38px 0 60px}
-.hgrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(290px,.85fr);gap:32px;align-items:center}
-.pill-status{display:inline-flex;align-items:center;gap:8px;padding:5px 13px;border-radius:99px;border:1px solid var(--line);background:var(--card-solid);font-family:var(--mono);font-size:12px;color:var(--ink-2)}
-.pill-status i{width:7px;height:7px;border-radius:50%;background:var(--live);animation:livePulse 2.4s infinite}
-@keyframes livePulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.55)}70%{box-shadow:0 0 0 8px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+.hero{padding:48px 0 64px}
+.hgrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(296px,.85fr);gap:32px;align-items:center}
+.pill-status{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:99px;border:1px solid var(--line);background:var(--card-solid);font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+.pill-status i{width:6px;height:6px;border-radius:50%;background:var(--live)}
 
-.hero h1{font-size:clamp(38px,4.4vw,56px);font-weight:700;line-height:1.05;letter-spacing:-.04em;margin:18px 0 14px}
+.hero h1{font-size:clamp(36px,4.2vw,54px);font-weight:600;line-height:1.08;letter-spacing:-.035em;margin:20px 0 16px;color:var(--ink)}
 .hero h1 .w-reg{font-weight:400;color:var(--ink-2)}
 .clip{display:block;overflow:hidden}
-.clip>span{display:block;animation:slideUp .68s var(--ease) both}
+.clip>span{display:block;animation:slideUp .6s var(--ease) both}
 .clip.d2>span{animation-delay:.08s}
-.silver{background:var(--silver);-webkit-background-clip:text;background-clip:text;color:transparent}
-@keyframes slideUp{from{transform:translateY(108%);opacity:0}to{transform:none;opacity:1}}
+@keyframes slideUp{from{transform:translate3d(0,104%,0);opacity:0}to{transform:none;opacity:1}}
 
-.role-line{display:inline-flex;align-items:center;gap:8px;padding:4px 11px;border-radius:8px;background:var(--elevated);border:1px solid var(--line);font-family:var(--mono);font-size:12.5px;color:var(--ink-2);margin-bottom:16px}
-.caret{width:6px;height:13px;background:var(--ink);animation:blink 1s steps(2) infinite}
+.role-line{display:inline-flex;align-items:center;gap:8px;padding:4px 12px;border-radius:8px;background:var(--elevated);border:1px solid var(--line);font-family:var(--mono);font-size:12.5px;color:var(--ink-2);margin-bottom:16px}
+.caret{width:6px;height:14px;background:var(--ink);animation:blink 1s steps(2) infinite}
 @keyframes blink{50%{opacity:0}}
-.hero p.lead{font-size:16.5px;color:var(--mut);max-width:52ch;line-height:1.65;animation:fadeUp .7s .18s var(--ease) both}
-.hacts{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px;animation:fadeUp .7s .24s var(--ease) both}
-.hlinks{display:flex;gap:18px;margin-top:20px;font-size:13.5px;color:var(--mut);animation:fadeUp .7s .3s var(--ease) both}
-.hlinks a:hover{color:var(--ink)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.hero p.lead{font-size:16px;color:var(--ink-2);max-width:52ch;line-height:1.65;animation:fadeUp .56s .14s var(--ease) both}
+.hacts{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;animation:fadeUp .56s .2s var(--ease) both}
+.hlinks{display:flex;gap:20px;flex-wrap:wrap;margin-top:20px;font-size:13.5px;color:var(--mut);animation:fadeUp .56s .26s var(--ease) both}
+.hlinks a,.hlinks button{transition:color .18s var(--ease)}
+.hlinks a:hover,.hlinks button:hover{color:var(--ink)}
+@keyframes fadeUp{from{opacity:0;transform:translate3d(0,12px,0)}to{opacity:1;transform:none}}
 
-/* Transparent Floating 3D Animated Avatar + Dribbble Architectural Grid-Mesh Backlight */
-.hero-stage{position:relative;display:grid;place-items:center;min-height:430px;background:transparent;border:0;box-shadow:none;animation:fadeUp .75s .14s var(--ease) both}
-.stage-mesh{position:absolute;inset:12px 10px;border-radius:28px;background-image:linear-gradient(to right,var(--line) 1px,transparent 1px),linear-gradient(to bottom,var(--line) 1px,transparent 1px);background-size:36px 36px;mask-image:radial-gradient(ellipse 68% 68% at 50% 48%,#000 28%,transparent 76%);-webkit-mask-image:radial-gradient(ellipse 68% 68% at 50% 48%,#000 28%,transparent 76%);pointer-events:none;opacity:.85}
-.stage-glow{position:absolute;width:330px;height:330px;border-radius:50%;background:radial-gradient(circle,var(--accent-glow) 0%,rgba(255,255,255,.06) 45%,transparent 72%);pointer-events:none;animation:breathe 6s ease-in-out infinite alternate}
-html[data-theme=light] .stage-glow{background:radial-gradient(circle,var(--accent-glow) 0%,rgba(0,0,0,.04) 48%,transparent 72%)}
-@keyframes breathe{from{transform:scale(.94)}to{transform:scale(1.07)}}
-.av-float{position:relative;z-index:2;width:min(360px,86%);animation:floatY 6s ease-in-out infinite;will-change:transform}
-@keyframes floatY{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-12px,0)}}
-.av-float img{width:100%;height:auto;background:transparent;mask-image:linear-gradient(to bottom,#000 84%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,#000 84%,transparent 100%);filter:drop-shadow(0 24px 36px rgba(0,0,0,.45));transition:transform .28s var(--ease)}
-html[data-theme=light] .av-float img{filter:drop-shadow(0 18px 28px rgba(0,0,0,.18))}
-.hero-stage:hover .av-float img{transform:scale(1.025)}
+/* Transparent Floating 3D Avatar + Architectural Grid-Mesh (No Neon Glows) */
+.hero-stage{position:relative;display:grid;place-items:center;min-height:420px;background:transparent;border:0;box-shadow:none;animation:fadeUp .64s .12s var(--ease) both}
+.stage-mesh{position:absolute;inset:12px 8px;border-radius:24px;background-image:linear-gradient(to right,var(--line) 1px,transparent 1px),linear-gradient(to bottom,var(--line) 1px,transparent 1px);background-size:36px 36px;mask-image:radial-gradient(ellipse 66% 66% at 50% 48%,#000 24%,transparent 74%);-webkit-mask-image:radial-gradient(ellipse 66% 66% at 50% 48%,#000 24%,transparent 74%);pointer-events:none;opacity:.8}
+.av-float{position:relative;z-index:2;width:min(360px,86%);transition:transform .24s var(--ease);will-change:transform}
+.av-float img{width:100%;height:auto;background:transparent;mask-image:linear-gradient(to bottom,#000 84%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,#000 84%,transparent 100%);filter:drop-shadow(0 20px 32px rgba(0,0,0,.42));transition:transform .32s var(--ease)}
+html[data-theme=light] .av-float img{filter:drop-shadow(0 16px 24px rgba(0,0,0,.16))}
+.hero-stage:hover .av-float img{transform:scale(1.015)}
 
-/* Monochrome Infinite Stack Marquee (Shot #1 Inspiration) */
-.marquee-bar{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2);overflow:hidden;padding:15px 0;mask-image:linear-gradient(to right,transparent,#000 9%,#000 91%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,#000 9%,#000 91%,transparent)}
-.mtrack{display:flex;width:max-content;gap:34px;animation:mq 32s linear infinite;will-change:transform}
+/* Monochrome Stack Marquee Strip */
+.marquee-bar{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2);overflow:hidden;padding:16px 0;mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent)}
+.mtrack{display:flex;width:max-content;gap:32px;animation:mq 34s linear infinite;will-change:transform}
 .marquee-bar:hover .mtrack{animation-play-state:paused}
 @keyframes mq{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
-.mitem{font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--mut);display:inline-flex;align-items:center;gap:10px;white-space:nowrap}
-.mitem i{width:4px;height:4px;border-radius:50%;background:var(--accent);opacity:.8}
+.mitem{font-family:var(--mono);font-size:12.5px;font-weight:400;color:var(--mut);display:inline-flex;align-items:center;gap:10px;white-space:nowrap}
+.mitem i{width:4px;height:4px;border-radius:50%;background:var(--accent);opacity:.85}
 
-/* Sections */
+/* Sections & Calm Sentence-Case Headers */
 .sec{padding:72px 0;border-top:1px solid var(--line)}
 .sec-h{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:32px}
-.kicker{font-family:var(--mono);font-size:11.5px;color:var(--mut);letter-spacing:.05em}
-h2.st{font-size:clamp(30px,3.6vw,44px);font-weight:700;letter-spacing:-.035em;line-height:1.06;margin-top:6px}
-.ssub{color:var(--mut);max-width:50ch;font-size:15px}
+.kicker{font-family:var(--mono);font-size:12px;color:var(--mut);letter-spacing:.01em}
+h2.st{font-size:clamp(28px,3.4vw,40px);font-weight:600;letter-spacing:-.03em;line-height:1.1;margin-top:8px}
+.ssub{color:var(--mut);max-width:52ch;font-size:15px;margin-top:4px}
 
 /* Overview Bento */
 .bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
@@ -202,72 +193,71 @@ h2.st{font-size:clamp(30px,3.6vw,44px);font-weight:700;letter-spacing:-.035em;li
 .pstep h4{font-size:16px;font-weight:600;letter-spacing:-.02em;margin:8px 0 6px}
 .pstep p{font-size:13px;color:var(--mut);line-height:1.55}
 
-/* Staggered 2-Column Editorial Project Grid (Shot #1 Inspiration) */
-.filters{display:flex;gap:6px;flex-wrap:wrap}
-.pill{height:34px;padding:0 15px;border-radius:99px;border:1px solid var(--line);background:var(--card-solid);font-size:13px;font-weight:500;color:var(--mut);transition:all .18s var(--ease)}
+/* Clean 2-Column Editorial Project Grid (Symmetrical Alignment, 4px Rhythm) */
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.pill{height:36px;padding:0 16px;border-radius:99px;border:1px solid var(--line);background:var(--card-solid);font-size:13px;font-weight:500;color:var(--mut);transition:color .18s var(--ease),border-color .18s var(--ease),background-color .18s var(--ease)}
 .pill:hover{color:var(--ink);border-color:var(--line-hi)}
 .pill.on{background:var(--btn-bg);color:var(--btn-ink);border-color:var(--btn-bg)}
 
-.pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:start}
-@media(min-width:961px){.pgrid.is-all .pitem:nth-child(even){margin-top:26px}}
-.pitem{padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;text-align:left;cursor:pointer;min-height:405px}
+.pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:stretch}
+.pitem{padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;text-align:left;cursor:pointer}
 .pitem.hide{display:none}
-.p-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.p-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .p-id{display:flex;align-items:center;gap:12px;min-width:0}
-.p-ico{width:44px;height:44px;border-radius:11px;object-fit:cover;border:1px solid var(--line);background:var(--elevated);flex:none}
+.p-ico{width:44px;height:44px;border-radius:10px;object-fit:cover;border:1px solid var(--line);background:var(--elevated);flex:none}
 .p-title-wrap{min-width:0}
-.p-name{font-size:18px;font-weight:600;letter-spacing:-.025em;line-height:1.2;color:var(--ink)}
-.p-dom{font-family:var(--mono);font-size:11px;color:var(--mut);margin-top:3px;line-height:1.25}
+.p-name{font-size:17px;font-weight:600;letter-spacing:-.02em;line-height:1.25;color:var(--ink)}
+.p-dom{font-family:var(--mono);font-size:12px;color:var(--mut);margin-top:2px;line-height:1.3}
 .p-head-r{display:flex;align-items:center;gap:8px;flex:none}
-.p-badge{padding:3.5px 9px;border-radius:99px;border:1px solid var(--line-hi);background:var(--elevated);font-family:var(--mono);font-size:10.5px;color:var(--ink-2);white-space:nowrap}
-.p-badge.reach{border-color:rgba(34,197,94,.4);color:var(--live)}
-.p-arrow{width:34px;height:34px;border-radius:50%;border:1px solid var(--line-hi);background:var(--bg-2);display:grid;place-items:center;color:var(--ink-2);font-size:14px;transition:transform .25s var(--ease),background-color .2s,color .2s}
-.pitem:hover .p-arrow{background:var(--btn-bg);color:var(--btn-ink);border-color:var(--btn-bg);transform:translate(2px,-2px)}
+.p-badge{font-family:var(--mono);font-size:11.5px;color:var(--mut);white-space:nowrap}
+.p-badge.reach{color:var(--live)}
+.p-arrow{width:32px;height:32px;border-radius:50%;border:1px solid var(--line-hi);background:var(--bg-2);display:grid;place-items:center;color:var(--ink-2);font-size:14px;transition:transform .24s var(--ease),background-color .2s var(--ease),color .2s var(--ease),border-color .2s var(--ease)}
+.pitem:hover .p-arrow{background:var(--btn-bg);color:var(--btn-ink);border-color:var(--btn-bg);transform:translate3d(2px,-2px,0)}
 
-.p-prev{height:208px;border-radius:14px;background-color:var(--bg-2);background-image:radial-gradient(ellipse 70% 55% at 50% 0%,var(--accent-glow),transparent 70%),linear-gradient(to right,var(--line) 1px,transparent 1px),linear-gradient(to bottom,var(--line) 1px,transparent 1px);background-size:100% 100%,28px 28px,28px 28px;border:1px solid var(--line);overflow:hidden;display:flex;gap:10px;padding:14px;align-items:center;justify-content:center;position:relative}
-.p-prev img{height:100%;width:auto;max-width:44%;border-radius:9px;object-fit:contain;border:1px solid var(--line);background:var(--card-solid);box-shadow:0 10px 24px -10px rgba(0,0,0,.5);transition:transform .38s var(--ease)}
+.p-prev{height:208px;border-radius:10px;background-color:var(--bg-2);background-image:linear-gradient(to right,var(--line) 1px,transparent 1px),linear-gradient(to bottom,var(--line) 1px,transparent 1px);background-size:28px 28px;border:1px solid var(--line);overflow:hidden;display:flex;gap:12px;padding:12px;align-items:center;justify-content:center;position:relative}
+.p-prev img{height:100%;width:auto;max-width:44%;border-radius:6px;object-fit:contain;border:1px solid var(--line);background:var(--card-solid);transition:transform .32s var(--ease)}
 .p-prev.has-3 img{max-width:30%}
-.p-prev img.tvimg{height:100%;width:auto;max-width:67%;object-fit:contain}
-.p-prev img.ctrlimg{height:100%;width:auto;max-width:29%;object-fit:contain}
-.pitem:hover .p-prev img{transform:translateY(-3px) scale(1.03)}
+.p-prev img.tvimg{height:100%;width:auto;max-width:66%;object-fit:contain}
+.p-prev img.ctrlimg{height:100%;width:auto;max-width:30%;object-fit:contain}
+.pitem:hover .p-prev img{transform:translate3d(0,-3px,0)}
 
-.pitem p.p-desc{font-size:14px;color:var(--mut);line-height:1.55;margin:0}
-.ptags{display:flex;gap:6px;flex-wrap:wrap}
-.ptags span{font-family:var(--mono);font-size:11px;padding:3px 9px;border-radius:99px;background:var(--elevated);border:1px solid var(--line);color:var(--ink-2)}
+.pitem p.p-desc{font-size:14px;color:var(--ink-2);line-height:1.55;margin:0}
+.ptags{display:flex;gap:8px;flex-wrap:wrap}
+.ptags span{font-family:var(--mono);font-size:11.5px;padding:4px 10px;border-radius:8px;background:var(--elevated);border:1px solid var(--line);color:var(--ink-2)}
 .p-cta{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:500;color:var(--ink);padding-top:12px;border-top:1px solid var(--line)}
 
 /* Capabilities Matrix */
-.stack-card{padding:26px}
+.stack-card{padding:24px}
 .schips{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
-.schip{padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--elevated);font-family:var(--mono);font-size:12px;color:var(--ink-2);transition:all .16s}
+.schip{padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--elevated);font-family:var(--mono);font-size:12px;color:var(--ink-2);transition:border-color .18s var(--ease),background-color .18s var(--ease),color .18s var(--ease)}
 .schip:hover{border-color:var(--line-hi);color:var(--ink)}
 .schip.on{background:var(--btn-bg);color:var(--btn-ink);border-color:var(--btn-bg)}
-.smatches{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding-top:14px;border-top:1px solid var(--line);font-size:13.5px;color:var(--mut)}
-.mchip{padding:5px 12px;border-radius:99px;border:1px solid var(--line-hi);background:var(--card-solid);color:var(--ink);font-size:12.5px;font-weight:500}
+.smatches{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding-top:16px;border-top:1px solid var(--line);font-size:13.5px;color:var(--mut)}
+.mchip{padding:6px 12px;border-radius:99px;border:1px solid var(--line-hi);background:var(--card-solid);color:var(--ink);font-size:12.5px;font-weight:500;transition:border-color .18s var(--ease)}
 .mchip:hover{border-color:var(--ink)}
 
-/* Experience Interactive Timeline */
-.ledger{position:relative;display:grid;gap:18px;padding-left:28px}
-.ledger::before{content:"";position:absolute;left:7px;top:16px;bottom:16px;width:1px;background:var(--line-hi)}
-.lrow{position:relative;padding:24px 26px;display:grid;gap:16px}
-.lrow::after{content:"";position:absolute;left:-26px;top:30px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--mut);z-index:2}
+/* Experience Interactive Timeline (Aligned 4px Grid) */
+.ledger{position:relative;display:grid;gap:16px;padding-left:28px}
+.ledger::before{content:"";position:absolute;left:7px;top:24px;bottom:24px;width:1px;background:var(--line-hi)}
+.lrow{position:relative;padding:24px;display:grid;gap:16px}
+.lrow::after{content:"";position:absolute;left:-26px;top:28px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--mut);z-index:2}
 .lrow.featured{border-color:var(--line-hi)}
-.lrow.featured::after{border-color:var(--live);background:var(--live);box-shadow:0 0 0 4px rgba(34,197,94,.18)}
-.lhead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;padding-bottom:14px;border-bottom:1px solid var(--line)}
-.lorg{font-size:21px;font-weight:700;letter-spacing:-.025em;line-height:1.15}
-.lrole{font-size:14.5px;font-weight:500;color:var(--ink-2);margin-top:4px}
+.lrow.featured::after{border-color:var(--live);background:var(--live)}
+.lhead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.lorg{font-size:20px;font-weight:600;letter-spacing:-.02em;line-height:1.2}
+.lrole{font-size:14px;font-weight:500;color:var(--ink-2);margin-top:4px}
 .lmeta-r{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .lwhen{font-family:var(--mono);font-size:12px;color:var(--mut);padding:4px 10px;border-radius:99px;background:var(--bg-2);border:1px solid var(--line)}
-.ltag{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;border:1px solid var(--line-hi);background:var(--elevated);font-family:var(--mono);font-size:11px;color:var(--ink-2)}
-.ltag.live{border-color:rgba(34,197,94,.4);color:var(--live)}
-.lrow ul{list-style:none;display:grid;gap:10px}
-.lrow li{font-size:14px;color:var(--mut);padding-left:18px;position:relative;line-height:1.65}
-.lrow li::before{content:"";position:absolute;left:2px;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--line-hi)}
-.lrow.featured li::before{background:var(--ink-2)}
+.ltag{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;border:1px solid var(--line-hi);background:var(--elevated);font-family:var(--mono);font-size:11.5px;color:var(--ink-2)}
+.ltag.live{border-color:rgba(76,195,138,.4);color:var(--live)}
+.lrow ul{list-style:none;display:grid;gap:8px}
+.lrow li{font-size:14px;color:var(--ink-2);padding-left:16px;position:relative;line-height:1.6}
+.lrow li::before{content:"";position:absolute;left:0;top:.64em;width:5px;height:5px;border-radius:50%;background:var(--mut)}
+.lrow.featured li::before{background:var(--ink)}
 .lrow li strong{color:var(--ink);font-weight:600}
-.lapps{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding-top:12px;border-top:1px solid var(--line)}
-.lapps-lbl{font-family:var(--mono);font-size:11px;color:var(--mut);margin-right:4px}
-.lapp-chip{padding:4px 10px;border-radius:99px;border:1px solid var(--line);background:var(--bg-2);font-size:12px;font-weight:500;color:var(--ink-2);transition:all .16s}
+.lapps{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding-top:12px;border-top:1px solid var(--line)}
+.lapps-lbl{font-family:var(--mono);font-size:12px;color:var(--mut);margin-right:4px}
+.lapp-chip{padding:4px 12px;border-radius:99px;border:1px solid var(--line);background:var(--bg-2);font-size:12px;font-weight:500;color:var(--ink-2);transition:border-color .18s var(--ease),color .18s var(--ease),background-color .18s var(--ease)}
 .lapp-chip:hover{border-color:var(--ink);color:var(--ink);background:var(--elevated)}
 
 /* Contact */
@@ -318,7 +308,7 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
 .lb-box img{max-width:90vw;max-height:80vh;width:auto;height:auto;border-radius:14px;border:1px solid var(--line-hi);background:var(--card-solid)}
 .lb-bar{display:flex;align-items:center;gap:12px;color:#fafafa;font-family:var(--mono);font-size:12px}
 
-.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);padding:10px 18px;border-radius:99px;background:var(--btn-bg);color:var(--btn-ink);font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:all .2s var(--ease);z-index:120}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);padding:10px 18px;border-radius:99px;background:var(--btn-bg);color:var(--btn-ink);font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .22s var(--ease),transform .22s var(--ease);z-index:120}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 .rv{opacity:0;transform:translateY(16px);transition:opacity .48s var(--ease),transform .48s var(--ease)}
 .rv.in{opacity:1;transform:none}
@@ -377,26 +367,25 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
       <div>
         <div class="pill-status"><i></i><span>Vadodara, India · <span id="ist" class="mono">IST</span> · Available</span></div>
         <h1>
-          <span class="clip"><span><span class="w-reg">Engineering</span> Modern</span></span>
-          <span class="clip d2"><span class="silver">Mobile &amp; TV Apps.</span></span>
+          <span class="clip"><span><span class="w-reg">Developing</span> Production</span></span>
+          <span class="clip d2"><span>Mobile &amp; TV Apps</span></span>
         </h1>
         <div class="role-line"><span id="role"></span><span class="caret" aria-hidden="true"></span></div>
         <p class="lead">Mobile Application Developer with 4+ years building native Kotlin apps, kiosk-mode Android TV signage systems with custom default launcher &amp; edge AI, and production Flutter apps across Google Play &amp; App Store.</p>
         <div class="hacts">
-          <a class="btn pri" href="#work">Explore 10 Apps ↓</a>
+          <a class="btn pri" href="#work">View 10 Apps ↓</a>
           <a class="btn" href="Parth_Patel_Resume.pdf" target="_blank" rel="noopener" download>Resume PDF</a>
-          <button class="btn" id="hcopy" type="button">Copy Email</button>
         </div>
         <div class="hlinks">
           <a href="https://github.com/Parth5087" target="_blank" rel="noopener">GitHub ↗</a>
           <a href="https://www.linkedin.com/in/parth-patel-49233b217/" target="_blank" rel="noopener">LinkedIn ↗</a>
           <a href="mailto:parthpatel5087@gmail.com">parthpatel5087@gmail.com</a>
+          <button id="hcopy" type="button">Copy Email</button>
         </div>
       </div>
 
       <div class="hero-stage" id="heroStage">
         <div class="stage-mesh" aria-hidden="true"></div>
-        <div class="stage-glow" aria-hidden="true"></div>
         <div class="av-float" id="avFloat">
           <img src="assets/parth-cutout.webp" alt="Parth Patel 3D Avatar" width="680" height="783" fetchpriority="high">
         </div>
@@ -412,8 +401,8 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
     <div class="wrap">
       <div class="sec-h">
         <div>
-          <div class="kicker">OVERVIEW</div>
-          <h2 class="st">Built for Production Scale.</h2>
+          <div class="kicker">Overview</div>
+          <h2 class="st">Built for Production Scale</h2>
         </div>
         <p class="ssub">Production mobile apps across Kotlin Android, Kiosk Android TV, and Flutter.</p>
       </div>
@@ -421,7 +410,7 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
       <div class="bento">
         <div class="bcard b-a rv">
           <div>
-            <h3>Clean Architecture across three platforms</h3>
+            <h3>Clean architecture across three platforms</h3>
             <p>From BLoC &amp; Provider state flows and In-App Purchases in Flutter to real-time foreground/background GPS tracking, kiosk lock with custom default launchers on Android TV, and on-device ML Kit + TensorFlow Lite inference.</p>
           </div>
           <div class="arch" aria-hidden="true">
@@ -439,50 +428,50 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
             <p>Shipped commercial mobile, Android TV &amp; open-source apps across Play Store &amp; App Store.</p>
           </div>
           <div class="kpis">
-            <div><b class="cnt" data-n="4" data-s="+">4+</b><span>Years Exp.</span></div>
+            <div><b class="cnt" data-n="4" data-s="+">4+</b><span>Years Exp</span></div>
             <div><b class="cnt" data-n="10" data-s="">10</b><span>Projects</span></div>
             <div><b class="cnt" data-n="50" data-s="K+">50K+</b><span>Top Reach</span></div>
           </div>
         </div>
 
         <div class="bcard b-c rv">
-          <div class="kicker">LOCAL TIME · IST</div>
+          <div class="kicker">Local time · IST</div>
           <div class="ist-clock" id="istBig">--:--:--</div>
           <p>Vadodara, Gujarat · Available for mobile roles &amp; product builds.</p>
         </div>
 
         <div class="bcard b-d rv">
-          <div class="kicker">CORE PLATFORMS &amp; CONSOLES</div>
+          <div class="kicker">Core platforms &amp; consoles</div>
           <div class="plat-pills">
             <span>Kotlin</span><span>Flutter</span><span>Android TV</span><span>Custom Launcher</span><span>Kiosk Mode</span><span>Push Notifications</span><span>Google Cloud Console</span><span>Firebase Console</span><span>In-App Purchases</span>
           </div>
         </div>
 
         <div class="bcard b-e rv">
-          <div class="kicker">EDUCATION</div>
+          <div class="kicker">Education</div>
           <h3 style="margin-top:8px">B.E. Information Tech</h3>
           <p>Silver Oak College (2017–2021) · CGPA 8.74 · IEEE Technical Workshops.</p>
         </div>
       </div>
 
-      <div class="proc rv" aria-label="Engineering workflow">
+      <div class="proc rv" aria-label="Workflow">
         <div class="pstep">
-          <div class="pnum">01 · ARCHITECTURE</div>
-          <h4>Clean State &amp; UI</h4>
-          <p>Modular BLoC, Provider, and GetX flows tailored for responsive Android, iOS, and TV layouts.</p>
+          <div class="pnum">01 Architecture</div>
+          <h4>Clean state &amp; UI</h4>
+          <p>Modular BLoC, Provider, and GetX flows built for responsive Android, iOS, and TV layouts.</p>
         </div>
         <div class="pstep">
-          <div class="pnum">02 · HARDWARE &amp; EDGE</div>
-          <h4>Device Systems</h4>
+          <div class="pnum">02 Hardware &amp; edge</div>
+          <h4>Device systems</h4>
           <p>Kiosk Mode custom launchers, ExoPlayer caching, USB cameras, Bluetooth POS, and on-device AI.</p>
         </div>
         <div class="pstep">
-          <div class="pnum">03 · CLOUD &amp; CONSOLES</div>
-          <h4>Realtime &amp; Payments</h4>
+          <div class="pnum">03 Cloud &amp; consoles</div>
+          <h4>Realtime &amp; payments</h4>
           <p>Background GPS, Push Notifications (FCM), In-App Purchases, Google Cloud &amp; Firebase consoles.</p>
         </div>
         <div class="pstep">
-          <div class="pnum">04 · DELIVERY</div>
+          <div class="pnum">04 Delivery</div>
           <h4>Play &amp; App Store</h4>
           <p>End-to-end release engineering, performance optimization, Crashlytics monitoring, and team shipping.</p>
         </div>
@@ -494,7 +483,7 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
     <div class="wrap">
       <div class="sec-h">
         <div>
-          <div class="kicker">SELECTED WORK</div>
+          <div class="kicker">Selected work</div>
           <h2 class="st">Shipped Applications</h2>
           <p class="ssub">Real commercial, team, and open-source mobile &amp; Android TV apps with live store links.</p>
         </div>
@@ -508,7 +497,7 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
     <div class="wrap">
       <div class="sec-h">
         <div>
-          <div class="kicker">CAPABILITIES</div>
+          <div class="kicker">Capabilities</div>
           <h2 class="st">Technical Stack</h2>
         </div>
       </div>
@@ -524,7 +513,7 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
     <div class="wrap">
       <div class="sec-h">
         <div>
-          <div class="kicker">EXPERIENCE &amp; CREDENTIALS</div>
+          <div class="kicker">Experience &amp; credentials</div>
           <h2 class="st">Background</h2>
         </div>
       </div>
@@ -536,8 +525,8 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
     <div class="wrap">
       <div class="bcard cgrid rv">
         <div>
-          <div class="kicker">CONTACT</div>
-          <h2 class="st">Let's build something scalable.</h2>
+          <div class="kicker">Contact</div>
+          <h2 class="st">Start a Conversation</h2>
           <a class="bigmail" href="mailto:parthpatel5087@gmail.com">parthpatel5087@gmail.com</a>
           <p style="color:var(--mut);max-width:42ch;margin-bottom:22px">Available for full-time Android, Android TV, and Flutter development roles.</p>
           <div style="display:flex;gap:10px;flex-wrap:wrap">
@@ -826,7 +815,7 @@ pg.innerHTML=PROJECTS.map((p,idx)=>{
   return `<button class="bcard pitem rv" style="transition-delay:${(idx%2)*70}ms" data-id="${p.id}" data-cat="${p.cat}" type="button">
   <div class="p-head">
     <div class="p-id">
-      <img class="p-ico" src="${p.icon}" alt="${p.name}" loading="lazy">
+      <img class="p-ico" src="${p.icon}" alt="${p.name}">
       <div class="p-title-wrap">
         <div class="p-name">${p.name}</div>
         <div class="p-dom">${p.domain}</div>
@@ -838,7 +827,7 @@ pg.innerHTML=PROJECTS.map((p,idx)=>{
     </div>
   </div>
   <div class="p-prev ${!p.isTv&&thumbs.length>=3?'has-3':''}">
-    ${thumbs.map((s,i)=>`<img src="${s}" class="${p.isTv?(i===0?'tvimg':'ctrlimg'):''}" alt="${p.name} preview ${i+1}" loading="lazy">`).join('')}
+    ${thumbs.map((s,i)=>`<img src="${s}" class="${p.isTv?(i===0?'tvimg':'ctrlimg'):''}" alt="${p.name} preview ${i+1}">`).join('')}
   </div>
   <p class="p-desc">${p.subtitle}</p>
   <div class="ptags">${p.tech.slice(0,4).map(t=>`<span>${t}</span>`).join('')}</div>
@@ -996,10 +985,14 @@ $('#ledger').innerHTML=EXP.map(e=>`<div class="bcard lrow rv${e.featured?' featu
 </div>`).join('');
 $('#ledger').addEventListener('click',e=>{const b=e.target.closest('.lapp-chip');if(b)openSheet(b.dataset.open)});
 
-/* Reveal + counters */
+/* Reveal + smooth counters + active nav scroll tracking */
 function countEl(el){if(el.dataset.done)return;el.dataset.done=1;const n=+el.dataset.n,s=el.dataset.s||'',t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/800);el.textContent=Math.round(n*(1-Math.pow(1-k,3)))+s;if(k<1)requestAnimationFrame(f)})(t0)}
 const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');$$('.cnt',en.target).forEach(countEl);io.unobserve(en.target)}}),{threshold:.08});
 $$('.rv').forEach(el=>io.observe(el));
+
+const navLinks=$$('#menu a');
+const secObs=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){const id=en.target.id?'#'+en.target.id:'';navLinks.forEach(a=>a.classList.toggle('on',a.getAttribute('href')===id))}}),{rootMargin:'-35% 0px -55% 0px'});
+$$('main section').forEach(s=>secObs.observe(s));
 
 /* Nav, Toast, Copy & Real Contact Form */
 $('#burger').onclick=()=>{const o=$('#menu').classList.toggle('open');$('#burger').setAttribute('aria-expanded',o)};
