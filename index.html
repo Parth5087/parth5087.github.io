@@ -92,14 +92,39 @@ html[data-theme=light] .nav{background:rgba(255,255,255,.92);box-shadow:0 10px 2
 html[data-theme=light] header.hdr-stuck .nav{background:rgba(255,255,255,.98);border-color:var(--line-hi)}
 .brand{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:15px;letter-spacing:-.02em;white-space:nowrap}
 .mark{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--btn-bg);color:var(--btn-ink);font-size:13px;font-weight:700}
-.menu{display:flex;align-items:center;gap:2px}
-.menu a{padding:6px 13px;border-radius:99px;font-size:13.5px;font-weight:500;color:var(--mut);transition:color .18s,background-color .18s}
-.menu a:hover,.menu a.on{color:var(--ink);background:var(--elevated)}
+.menu{position:relative;display:flex;align-items:center;gap:2px}
+.menu a{position:relative;z-index:1;padding:6px 13px;border-radius:99px;font-size:13.5px;font-weight:500;color:var(--mut);transition:color .18s}
+.menu a:hover,.menu a.on{color:var(--ink)}
+.m-glider{position:absolute;top:0;left:0;height:100%;border-radius:99px;background:var(--elevated);border:1px solid var(--line);pointer-events:none;z-index:0;opacity:0;transition:transform .34s cubic-bezier(.34,1.35,.64,1),width .34s cubic-bezier(.34,1.35,.64,1),opacity .2s}
+.m-glider.vis{opacity:1}
 .navr{display:flex;align-items:center;gap:6px}
 .navbtn{height:34px;padding:0 13px;border-radius:99px;border:1px solid var(--line);background:var(--elevated);font-size:12.5px;font-weight:500;color:var(--ink-2);display:inline-flex;align-items:center;gap:6px;transition:border-color .18s,color .18s}
 .navbtn:hover{border-color:var(--line-hi);color:var(--ink)}
 .navbtn.sq{width:34px;padding:0;justify-content:center}
+.navbtn.snd-on{border-color:var(--line-hi);color:var(--ink)}
 .burger{display:none;width:34px;height:34px;border-radius:99px;border:1px solid var(--line);background:var(--elevated);place-items:center}
+
+/* Tactile Pull-Cord Bulb Theme Switch + Native View Transitions Radial Clip-Path */
+.cord-wrap{position:absolute;top:0;right:max(14px,calc((100vw - var(--mw))/2 - 54px));z-index:62;display:flex;flex-direction:column;align-items:center;cursor:grab;user-select:none;touch-action:none;padding:0 10px 10px}
+.cord-wrap:active{cursor:grabbing}
+.cord-mount{width:10px;height:4px;border-radius:0 0 4px 4px;background:var(--line-hi)}
+.cord-line{width:1.5px;height:52px;background:linear-gradient(to bottom,var(--mut),var(--ink-2));transition:height .34s cubic-bezier(.34,1.56,.64,1)}
+.cord-wrap.dragging .cord-line{transition:none}
+.cord-socket{width:14px;height:9px;border-radius:3px 3px 2px 2px;background:var(--elevated);border:1px solid var(--line-hi);position:relative;z-index:2}
+.cord-bulb{width:22px;height:26px;border-radius:50% 50% 44% 44% / 58% 58% 42% 42%;border:1px solid var(--line-hi);background:radial-gradient(circle at 50% 38%,rgba(255,255,255,.14),var(--card-solid) 72%);display:grid;place-items:center;margin-top:-1px;box-shadow:0 8px 18px -6px rgba(0,0,0,.6);transition:background .28s var(--ease),border-color .28s var(--ease),box-shadow .28s var(--ease),transform .28s var(--ease)}
+.cord-fil{width:8px;height:10px;border-radius:50% 50% 2px 2px;border:1.5px solid var(--mut);border-bottom:0;transition:border-color .25s,box-shadow .25s}
+html[data-theme=light] .cord-bulb{background:radial-gradient(circle at 50% 42%,#fff9d6 0%,#fde68a 58%,#f59e0b 100%);border-color:#d97706;box-shadow:0 0 24px 2px rgba(245,158,11,.36),0 6px 14px -4px rgba(0,0,0,.15)}
+html[data-theme=light] .cord-fil{border-color:#b45309;box-shadow:0 0 8px #fef08a}
+.cord-wrap:hover .cord-bulb{transform:translateY(2px)}
+.cord-tip{margin-top:5px;font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;color:var(--mut);opacity:0;transform:translateY(-4px);transition:opacity .2s,transform .2s;white-space:nowrap;pointer-events:none}
+.cord-wrap:hover .cord-tip,.cord-wrap.dragging .cord-tip{opacity:1;transform:none}
+@media(max-width:1240px){.cord-wrap{display:none}}
+
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+::view-transition-old(root){z-index:1}
+::view-transition-new(root){z-index:999}
+html.vt-rad::view-transition-new(root){animation:vtReveal .58s cubic-bezier(.22,1,.36,1) both}
+@keyframes vtReveal{from{clip-path:circle(0px at var(--vx,92vw) var(--vy,74px))}to{clip-path:circle(155vmax at var(--vx,92vw) var(--vy,74px))}}
 
 /* Buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 22px;border-radius:99px;font-size:14px;font-weight:500;border:1px solid var(--line-hi);background:var(--card-solid);color:var(--ink);transition:transform .22s var(--ease),border-color .2s,background-color .2s;white-space:nowrap}
@@ -173,11 +198,23 @@ h2.st{font-size:clamp(28px,3.4vw,40px);font-weight:600;letter-spacing:-.03em;lin
 .bcard h3{font-size:20px;font-weight:600;letter-spacing:-.02em}
 .bcard p{color:var(--mut);font-size:14px;margin-top:8px;line-height:1.6}
 
-.arch{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:8px;margin-top:22px;padding:14px;border-radius:14px;background:var(--bg-2);border:1px solid var(--line)}
-.anode{padding:10px;border-radius:10px;background:var(--card-solid);border:1px solid var(--line);text-align:center;font-family:var(--mono);font-size:11.5px;color:var(--ink-2)}
-.alink{height:2px;width:28px;background:var(--line-hi);position:relative;overflow:hidden}
+/* Interactive Android TV Kiosk & Wireless Pairing Console Simulator */
+.ksim{margin-top:18px;padding:14px;border-radius:14px;background:var(--bg-2);border:1px solid var(--line);display:grid;gap:12px}
+.ksim-hd{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px}
+.ksim-st{display:inline-flex;align-items:center;gap:7px;color:var(--ink-2)}
+.ksim-st i{width:7px;height:7px;border-radius:50%;background:var(--accent);transition:background-color .22s,box-shadow .22s}
+.ksim-st i.on{background:var(--live);box-shadow:0 0 8px rgba(76,195,138,.45)}
+.ksim-code{padding:3px 9px;border-radius:99px;border:1px solid var(--line-hi);background:var(--card-solid);color:var(--ink);letter-spacing:.04em}
+.ksim-pipe{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:8px}
+.anode{padding:9px 8px;border-radius:10px;background:var(--card-solid);border:1px solid var(--line);text-align:center;font-family:var(--mono);font-size:11px;color:var(--ink-2);transition:border-color .2s,color .2s}
+.anode.lit{border-color:rgba(76,195,138,.45);color:var(--ink)}
+.alink{height:2px;width:24px;background:var(--line-hi);position:relative;overflow:hidden}
 .alink::after{content:"";position:absolute;inset:0;width:50%;background:var(--ink);animation:sig 1.8s linear infinite}
 @keyframes sig{from{transform:translateX(-100%)}to{transform:translateX(200%)}}
+.ksim-acts{display:flex;gap:8px;flex-wrap:wrap}
+.ksim-btn{height:30px;padding:0 12px;border-radius:99px;border:1px solid var(--line-hi);background:var(--elevated);font-family:var(--mono);font-size:11px;color:var(--ink-2);transition:border-color .18s,color .18s,background-color .18s,transform .15s}
+.ksim-btn:hover{border-color:var(--ink);color:var(--ink)}
+.ksim-btn:active{transform:scale(.97)}
 
 .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
 .kpis div{padding:14px 12px;border-radius:14px;background:var(--bg-2);border:1px solid var(--line)}
@@ -187,7 +224,7 @@ h2.st{font-size:clamp(28px,3.4vw,40px);font-weight:600;letter-spacing:-.03em;lin
 .plat-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
 .plat-pills span{padding:5px 10px;border-radius:8px;background:var(--elevated);border:1px solid var(--line);font-family:var(--mono);font-size:11.5px;color:var(--ink-2)}
 
-/* 4-Step Working Process Hairline Strip (Shot #2 Inspiration) */
+/* 4-Step Working Process Hairline Strip */
 .proc{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:16px;border:1px solid var(--line);border-radius:20px;background:var(--card);overflow:hidden}
 .pstep{padding:22px;position:relative;transition:background-color .22s var(--ease)}
 .pstep+.pstep{border-left:1px solid var(--line)}
@@ -196,11 +233,12 @@ h2.st{font-size:clamp(28px,3.4vw,40px);font-weight:600;letter-spacing:-.03em;lin
 .pstep h4{font-size:16px;font-weight:600;letter-spacing:-.02em;margin:8px 0 6px}
 .pstep p{font-size:13px;color:var(--mut);line-height:1.55}
 
-/* Clean 2-Column Editorial Project Grid (Symmetrical Alignment, 4px Rhythm) */
-.filters{display:flex;gap:8px;flex-wrap:wrap}
-.pill{height:36px;padding:0 16px;border-radius:99px;border:1px solid var(--line);background:var(--card-solid);font-size:13px;font-weight:500;color:var(--mut);transition:color .18s var(--ease),border-color .18s var(--ease),background-color .18s var(--ease)}
-.pill:hover{color:var(--ink);border-color:var(--line-hi)}
-.pill.on{background:var(--btn-bg);color:var(--btn-ink);border-color:var(--btn-bg)}
+/* Clean 2-Column Editorial Project Grid + Sliding Spring Filter Pill */
+.filters{position:relative;display:inline-flex;gap:4px;flex-wrap:wrap;padding:4px;border-radius:99px;background:var(--bg-2);border:1px solid var(--line)}
+.f-glider{position:absolute;top:4px;left:0;height:34px;border-radius:99px;background:var(--btn-bg);pointer-events:none;z-index:0;transition:transform .36s cubic-bezier(.34,1.38,.64,1),width .36s cubic-bezier(.34,1.38,.64,1)}
+.pill{position:relative;z-index:1;height:34px;padding:0 14px;border-radius:99px;border:0;background:transparent;font-size:13px;font-weight:500;color:var(--mut);transition:color .2s var(--ease)}
+.pill:hover{color:var(--ink)}
+.pill.on{color:var(--btn-ink)}
 
 .pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:stretch}
 .pitem{padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;text-align:left;cursor:pointer}
@@ -302,6 +340,40 @@ dialog.sheet::backdrop{background:rgba(0,0,0,.76)}
 .sh-hint{font-family:var(--mono);font-size:11px;color:var(--mut);text-align:center;margin-top:2px}
 .pill-cnt{opacity:.65;font-family:var(--mono);font-size:11.5px;margin-left:4px}
 .pill.on .pill-cnt{opacity:.8}
+
+/* Modal Inspection Switcher (Screens / Architecture) & Device Bezel Framing */
+.sh-tools{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.sh-seg{display:inline-flex;padding:3px;border-radius:99px;background:var(--bg-2);border:1px solid var(--line);gap:2px}
+.sh-segb{height:30px;padding:0 13px;border-radius:99px;font-size:12px;font-weight:500;color:var(--mut);transition:background-color .2s,color .2s}
+.sh-segb.on{background:var(--btn-bg);color:var(--btn-ink)}
+.sh-gal.hide,.sh-arc.hide{display:none}
+.sh-gal.framed .sh-frame{padding:10px 8px 14px;border-radius:20px;background:#0a0a0d;border:2px solid #2b2b34;position:relative;box-shadow:0 16px 32px -18px rgba(0,0,0,.7)}
+.sh-gal.framed .sh-frame::before{content:"";display:block;width:28px;height:3px;border-radius:3px;background:#2b2b34;position:absolute;top:5px;left:50%;transform:translateX(-50%)}
+.sh-gal.framed .sh-fig.tv .sh-frame{padding:8px 8px 14px;border-radius:10px;border-width:3px}
+.sh-gal.framed .sh-fig.tv .sh-frame::before{width:46px;height:3px;top:auto;bottom:4px;background:#3a3a46}
+.sh-gal.framed .sh-frame img{margin-top:6px;border-radius:10px}
+.sh-gal.framed .sh-fig.tv .sh-frame img{margin-top:0;border-radius:4px}
+
+.arch-flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.af-step{padding:14px;border-radius:14px;background:var(--bg-2);border:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+.af-idx{font-family:var(--mono);font-size:11px;color:var(--live)}
+.af-t{font-size:14.5px;font-weight:600;color:var(--ink)}
+.af-d{font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.af-b{align-self:flex-start;margin-top:auto;padding:3px 8px;border-radius:6px;background:var(--elevated);border:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--mut)}
+
+/* Smart Context-Aware Precision Cursor (Desktop fine pointer only) */
+.cur{display:none}
+@media(hover:hover) and (pointer:fine){
+  .cur{display:inline-flex;align-items:center;justify-content:center;position:fixed;left:0;top:0;z-index:140;pointer-events:none;width:10px;height:10px;border-radius:99px;border:1.5px solid var(--ink);background:transparent;opacity:0;transform:translate3d(-40px,-40px,0);transition:width .22s var(--ease),height .22s var(--ease),background-color .22s var(--ease),border-color .22s var(--ease),opacity .2s;will-change:transform}
+  .cur.vis{opacity:.85}
+  .cur span{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--btn-ink);white-space:nowrap;opacity:0;transform:scale(.86);transition:opacity .15s,transform .15s}
+  .cur.pill{width:auto;min-width:68px;height:28px;padding:0 12px;background:var(--btn-bg);border-color:var(--btn-bg);opacity:.96;box-shadow:0 8px 20px -8px rgba(0,0,0,.55)}
+  .cur.pill span{opacity:1;transform:none}
+}
+
+/* Native App-Style Mobile Floating Bottom Bar */
+.mob-dock{display:none}
+
 .sh-b h4{font-family:var(--mono);font-size:11.5px;color:var(--mut);margin-bottom:8px;letter-spacing:.04em}
 .sh-b p,.sh-b li{font-size:14.5px;color:var(--ink-2);line-height:1.65;overflow-wrap:anywhere}
 .sh-b ul{list-style:none;display:grid;gap:8px}
@@ -336,33 +408,57 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
   .proc{grid-template-columns:repeat(2,1fr)}
   .pstep:nth-child(3){border-left:0}
   .pstep:nth-child(n+3){border-top:1px solid var(--line)}
-  .pgrid{grid-template-columns:1fr}
+  .pgrid,.arch-flow{grid-template-columns:1fr}
   .sh-tv-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .menu{display:none;position:absolute;left:16px;right:16px;top:76px;flex-direction:column;align-items:stretch;padding:10px;border-radius:16px;background:var(--card-solid);border:1px solid var(--line-hi);box-shadow:0 20px 50px rgba(0,0,0,.4)}
   .menu.open{display:flex}
+  .m-glider{display:none}
   .burger{display:grid}.navr .resume{display:none}
   .hero-stage{min-height:340px}
 }
+@media(max-width:760px){
+  .mob-dock{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:55;display:flex;align-items:center;gap:4px;padding:6px;border-radius:99px;background:rgba(19,19,24,.94);border:1px solid var(--line-hi);box-shadow:0 16px 36px -12px rgba(0,0,0,.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  html[data-theme=light] .mob-dock{background:rgba(255,255,255,.94);box-shadow:0 14px 32px -12px rgba(20,20,22,.2)}
+  .mob-dock a{padding:7px 11px;border-radius:99px;font-size:11.5px;font-weight:500;color:var(--mut);display:inline-flex;align-items:center;gap:5px;transition:color .18s,background-color .18s;white-space:nowrap}
+  .mob-dock a.on{color:var(--btn-ink);background:var(--btn-bg)}
+  .mob-dock svg.i{width:14px;height:14px}
+  footer{padding-bottom:88px}
+  .toast{bottom:78px}
+}
 @media(max-width:620px){
-  .proc,.pgrid,.kpis,.sh-tv-grid{grid-template-columns:1fr}
+  .proc,.pgrid,.kpis,.sh-tv-grid,.ksim-pipe{grid-template-columns:1fr}
+  .ksim-pipe .alink{width:2px;height:16px;margin:0 auto}
+  .filters{border-radius:18px;width:100%;justify-content:space-between}
+  .f-glider{display:none}
+  .pill.on{background:var(--btn-bg)}
   .pstep+.pstep{border-left:0;border-top:1px solid var(--line)}
   .p-prev{height:176px}
   .sh-mob-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .ledger{padding-left:0}.ledger::before,.lrow::after{display:none}
   .cgrid,.lrow{padding:20px}.sh-h,.sh-b{padding:18px}
 }
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.mtrack{flex-wrap:wrap;width:100%;justify-content:center}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.mtrack{flex-wrap:wrap;width:100%;justify-content:center}.cur{display:none!important}html.vt-rad::view-transition-new(root){animation:none!important}}
 </style>
 </head>
 <body>
 <div class="sheen" aria-hidden="true"></div>
 <div id="prog"></div>
 
+<div class="cur" id="cur" aria-hidden="true"><span id="curLbl"></span></div>
+
 <header>
+  <div class="cord-wrap" id="cordWrap" role="button" tabindex="0" aria-label="Pull cord to switch Dark and Light mode" title="Pull cord to toggle light">
+    <div class="cord-mount"></div>
+    <div class="cord-line" id="cordLine"></div>
+    <div class="cord-socket"></div>
+    <div class="cord-bulb"><div class="cord-fil"></div></div>
+    <span class="cord-tip">Pull cord</span>
+  </div>
   <div class="wrap">
     <nav class="nav" aria-label="Primary">
       <a href="#top" class="brand"><span class="mark">P</span><span>Parth Patel</span></a>
       <div class="menu" id="menu">
+        <span class="m-glider" id="mGlider" aria-hidden="true"></span>
         <a href="#overview">Overview</a>
         <a href="#work">Apps</a>
         <a href="#craft">Capabilities</a>
@@ -370,8 +466,9 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
         <a href="#contact">Contact</a>
       </div>
       <div class="navr">
-        <button class="navbtn sq" id="thmBtn" type="button" aria-label="Toggle theme"></button>
-        <a class="navbtn resume" href="Parth_Patel_Resume.pdf" target="_blank" rel="noopener" download>Resume ↗</a>
+        <button class="navbtn sq" id="sndBtn" type="button" aria-label="Toggle switch sound" title="Toggle subtle UI click sound" aria-pressed="true"></button>
+        <button class="navbtn sq" id="thmBtn" type="button" aria-label="Toggle light/dark theme"></button>
+        <a class="navbtn resume" href="Parth_Patel_Resume.pdf" target="_blank" rel="noopener" download title="Download Resume">Resume ↓</a>
         <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false"></button>
       </div>
     </nav>
@@ -382,22 +479,22 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
   <section class="hero">
     <div class="wrap hgrid">
       <div>
-        <div class="pill-status"><i></i><span>Vadodara, India · <span id="ist" class="mono">IST</span> · Available</span></div>
+        <div class="pill-status"><i></i><span>Vadodara, IN · <span id="ist" class="mono">IST</span> · Open to Roles</span></div>
         <h1>
           <span class="clip"><span><span class="w-reg">Developing</span> Production</span></span>
           <span class="clip d2"><span>Mobile &amp; TV Apps</span></span>
         </h1>
         <div class="role-line"><span id="role"></span><span class="caret" aria-hidden="true"></span></div>
-        <p class="lead">Mobile Application Developer with 4+ years building native Kotlin apps, kiosk-mode Android TV signage systems with custom default launcher &amp; edge AI, and production Flutter apps across Google Play &amp; App Store.</p>
+        <p class="lead">Mobile Engineer with 4+ years building native Kotlin apps, kiosk-mode Android TV signage systems with custom default launchers &amp; edge AI, and cross-platform Flutter products across Google Play &amp; App Store.</p>
         <div class="hacts">
-          <a class="btn pri" href="#work">View 10 Apps ↓</a>
-          <a class="btn" href="Parth_Patel_Resume.pdf" target="_blank" rel="noopener" download>Resume PDF</a>
+          <a class="btn pri" href="#work">Explore Shipped Apps ↓</a>
+          <a class="btn" href="Parth_Patel_Resume.pdf" target="_blank" rel="noopener" download>Download Resume</a>
         </div>
         <div class="hlinks">
           <a href="https://github.com/Parth5087" target="_blank" rel="noopener">GitHub ↗</a>
           <a href="https://www.linkedin.com/in/parth-patel-49233b217/" target="_blank" rel="noopener">LinkedIn ↗</a>
           <a href="mailto:parthpatel5087@gmail.com">parthpatel5087@gmail.com</a>
-          <button id="hcopy" type="button">Copy Email</button>
+          <button id="hcopy" type="button" data-cur="Copy">Copy Email</button>
         </div>
       </div>
 
@@ -418,47 +515,57 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
     <div class="wrap">
       <div class="sec-h">
         <div>
-          <div class="kicker">Overview</div>
+          <div class="kicker" data-dec="Overview">Overview</div>
           <h2 class="st">Built for Production Scale</h2>
         </div>
-        <p class="ssub">Production mobile apps across Kotlin Android, Kiosk Android TV, and Flutter.</p>
+        <p class="ssub">Engineering reliable production systems across Kotlin Android, Kiosk Android TV, and Flutter.</p>
       </div>
 
       <div class="bento">
         <div class="bcard b-a rv">
           <div>
-            <h3>Clean architecture across three platforms</h3>
-            <p>From BLoC &amp; Provider state flows and In-App Purchases in Flutter to real-time foreground/background GPS tracking, kiosk lock with custom default launchers on Android TV, and on-device ML Kit + TensorFlow Lite inference.</p>
+            <h3>Interactive TV Kiosk &amp; System Architecture</h3>
+            <p>Test the live Android TV signage flow below — pair over local Wi-Fi with a 6-digit code or toggle the Kiosk default home launcher lock.</p>
           </div>
-          <div class="arch" aria-hidden="true">
-            <div class="anode">Kotlin / Flutter UI</div>
-            <div class="alink"></div>
-            <div class="anode">BLoC · GetX · Kiosk</div>
-            <div class="alink"></div>
-            <div class="anode">GPS · Edge AI · Stores</div>
+          <div class="ksim" id="ksim">
+            <div class="ksim-hd">
+              <span class="ksim-st"><i id="kDot" class="on"></i><span id="kState">Kiosk Locked · Custom Launcher Active</span></span>
+              <span class="ksim-code mono" id="kCode">PIN · 363 824</span>
+            </div>
+            <div class="ksim-pipe" aria-hidden="true">
+              <div class="anode">TV Player UI</div>
+              <div class="alink"></div>
+              <div class="anode lit" id="kMidNode">Custom Launcher</div>
+              <div class="alink"></div>
+              <div class="anode" id="kEndNode">Edge AI · Offline</div>
+            </div>
+            <div class="ksim-acts">
+              <button class="ksim-btn" id="kPairBtn" type="button">Test 6-Digit Wireless Pair</button>
+              <button class="ksim-btn" id="kLockBtn" type="button">Toggle Kiosk Lock</button>
+            </div>
           </div>
         </div>
 
         <div class="bcard b-b rv">
           <div>
-            <h3>Track record</h3>
-            <p>Shipped commercial mobile, Android TV &amp; open-source apps across Play Store &amp; App Store.</p>
+            <h3>Engineering Impact</h3>
+            <p>Commercial mobile, Android TV &amp; open-source apps published across Play Store &amp; App Store.</p>
           </div>
           <div class="kpis">
             <div><b class="cnt" data-n="4" data-s="+">4+</b><span>Years Exp</span></div>
-            <div><b class="cnt" data-n="10" data-s="">10</b><span>Projects</span></div>
-            <div><b class="cnt" data-n="50" data-s="K+">50K+</b><span>Top Reach</span></div>
+            <div><b class="cnt" data-n="10" data-s="">10</b><span>Shipped Apps</span></div>
+            <div><b class="cnt" data-n="50" data-s="K+">50K+</b><span>Peak Reach</span></div>
           </div>
         </div>
 
         <div class="bcard b-c rv">
-          <div class="kicker">Local time · IST</div>
+          <div class="kicker">Timezone · IST</div>
           <div class="ist-clock" id="istBig">--:--:--</div>
-          <p>Vadodara, Gujarat · Available for mobile roles &amp; product builds.</p>
+          <p>Vadodara, India · Open to full-time mobile engineering roles &amp; product builds.</p>
         </div>
 
         <div class="bcard b-d rv">
-          <div class="kicker">Core platforms &amp; consoles</div>
+          <div class="kicker">Core stack &amp; consoles</div>
           <div class="plat-pills">
             <span>Kotlin</span><span>Flutter</span><span>Android TV</span><span>Custom Launcher</span><span>Kiosk Mode</span><span>Push Notifications</span><span>Google Cloud Console</span><span>Firebase Console</span><span>In-App Purchases</span>
           </div>
@@ -466,31 +573,31 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
 
         <div class="bcard b-e rv">
           <div class="kicker">Education</div>
-          <h3 style="margin-top:8px">B.E. Information Tech</h3>
-          <p>Silver Oak College (2017–2021) · CGPA 8.74 · IEEE Technical Workshops.</p>
+          <h3 style="margin-top:8px">B.E. Information Technology</h3>
+          <p>Silver Oak College (2017–2021) · 8.74 CGPA · IEEE Student Workshops.</p>
         </div>
       </div>
 
       <div class="proc rv" aria-label="Workflow">
         <div class="pstep">
           <div class="pnum">01 Architecture</div>
-          <h4>Clean state &amp; UI</h4>
-          <p>Modular BLoC, Provider, and GetX flows built for responsive Android, iOS, and TV layouts.</p>
+          <h4>Clean State &amp; UI</h4>
+          <p>Modular BLoC, Provider, and GetX flows engineered for responsive Android, iOS, and TV screens.</p>
         </div>
         <div class="pstep">
-          <div class="pnum">02 Hardware &amp; edge</div>
-          <h4>Device systems</h4>
+          <div class="pnum">02 Hardware &amp; Edge</div>
+          <h4>Device Systems</h4>
           <p>Kiosk Mode custom launchers, ExoPlayer caching, USB cameras, Bluetooth POS, and on-device AI.</p>
         </div>
         <div class="pstep">
-          <div class="pnum">03 Cloud &amp; consoles</div>
-          <h4>Realtime &amp; payments</h4>
+          <div class="pnum">03 Cloud &amp; Consoles</div>
+          <h4>Realtime &amp; Payments</h4>
           <p>Background GPS, Push Notifications (FCM), In-App Purchases, Google Cloud &amp; Firebase consoles.</p>
         </div>
         <div class="pstep">
           <div class="pnum">04 Delivery</div>
-          <h4>Play &amp; App Store</h4>
-          <p>End-to-end release engineering, performance optimization, Crashlytics monitoring, and team shipping.</p>
+          <h4>Store Releases</h4>
+          <p>Production release engineering, frame optimization, Crashlytics monitoring, and dual-store shipping.</p>
         </div>
       </div>
     </div>
@@ -500,9 +607,9 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
     <div class="wrap">
       <div class="sec-h">
         <div>
-          <div class="kicker">Selected work</div>
+          <div class="kicker" data-dec="Selected work">Selected Work</div>
           <h2 class="st">Shipped Applications</h2>
-          <p class="ssub">Real commercial, team, and open-source mobile &amp; Android TV apps with live store links.</p>
+          <p class="ssub">Commercial, collaborative, and open-source mobile &amp; Android TV apps running in production.</p>
         </div>
         <div class="filters" id="pfilters" role="tablist"></div>
       </div>
@@ -514,12 +621,12 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
     <div class="wrap">
       <div class="sec-h">
         <div>
-          <div class="kicker">Capabilities</div>
+          <div class="kicker" data-dec="Capabilities">Capabilities</div>
           <h2 class="st">Technical Stack</h2>
         </div>
       </div>
       <div class="bcard stack-card rv">
-        <strong>Select a technology to filter shipped projects</strong>
+        <strong>Filter shipped applications by technology or platform capability</strong>
         <div class="schips" id="schips"></div>
         <div class="smatches" id="smatches"></div>
       </div>
@@ -530,8 +637,8 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
     <div class="wrap">
       <div class="sec-h">
         <div>
-          <div class="kicker">Experience &amp; credentials</div>
-          <h2 class="st">Background</h2>
+          <div class="kicker" data-dec="Career timeline">Career Timeline</div>
+          <h2 class="st">Experience &amp; Credentials</h2>
         </div>
       </div>
       <div class="ledger" id="ledger"></div>
@@ -542,13 +649,13 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
     <div class="wrap">
       <div class="bcard cgrid rv">
         <div>
-          <div class="kicker">Contact</div>
-          <h2 class="st">Start a Conversation</h2>
+          <div class="kicker" data-dec="Contact">Contact</div>
+          <h2 class="st">Let’s Work Together</h2>
           <a class="bigmail" href="mailto:parthpatel5087@gmail.com">parthpatel5087@gmail.com</a>
-          <p style="color:var(--mut);max-width:42ch;margin-bottom:22px">Available for full-time Android, Android TV, and Flutter development roles.</p>
+          <p style="color:var(--mut);max-width:42ch;margin-bottom:22px">Open to full-time Android (Kotlin), Android TV, and Flutter engineering opportunities.</p>
           <div style="display:flex;gap:10px;flex-wrap:wrap">
-            <button class="btn pri" id="copyBtn" type="button">Copy Email</button>
-            <a class="btn" href="Parth_Patel_Resume.pdf" target="_blank" rel="noopener" download>Resume PDF</a>
+            <button class="btn pri" id="copyBtn" type="button" data-cur="Copy">Copy Email</button>
+            <a class="btn" href="Parth_Patel_Resume.pdf" target="_blank" rel="noopener" download>Download Resume</a>
             <a class="btn" href="https://github.com/Parth5087" target="_blank" rel="noopener">GitHub ↗</a>
             <a class="btn" href="https://www.linkedin.com/in/parth-patel-49233b217/" target="_blank" rel="noopener">LinkedIn ↗</a>
           </div>
@@ -559,10 +666,10 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
           <label class="sr-only" for="cf-e">Email</label>
           <input id="cf-e" name="e" type="email" placeholder="Your email" required>
           <label class="sr-only" for="cf-m">Message</label>
-          <textarea id="cf-m" name="m" placeholder="Tell me about the project or role..." required></textarea>
+          <textarea id="cf-m" name="m" placeholder="Tell me about the role or product..." required></textarea>
           <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <button class="btn pri sm" type="submit" style="flex:1">Send Message</button>
-            <button class="btn sm" type="button" id="copymsg">Copy</button>
+            <button class="btn pri sm" type="submit" style="flex:1">Send Enquiry</button>
+            <button class="btn sm" type="button" id="copymsg" data-cur="Copy">Copy</button>
           </div>
           <div id="fstat" class="mono" style="font-size:12px;color:var(--live);min-height:16px"></div>
         </form>
@@ -578,6 +685,13 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
     <a href="#top" class="btn sm">Top ↑</a>
   </div>
 </footer>
+
+<nav class="mob-dock" id="mobDock" aria-label="Quick mobile navigation">
+  <a href="#overview"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg><span>Overview</span></a>
+  <a href="#work"><svg class="i" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M12 18h.01"/></svg><span>Apps</span></a>
+  <a href="#craft"><svg class="i" viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5Zm0 10L2 7m10 5 10-5M2 17l10 5 10-5M2 12l10 5 10-5"/></svg><span>Stack</span></a>
+  <a href="#contact"><svg class="i" viewBox="0 0 24 24"><path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z"/><path d="m22 7-10 6L2 7"/></svg><span>Contact</span></a>
+</nav>
 
 <dialog class="sheet" id="sheet" aria-labelledby="shTitle">
   <div class="sh-h">
@@ -760,10 +874,10 @@ const EXP=[
    ],
    apps:['adflux','taximom','mamaghar','sports-injury','prolook','spotiz','sitemax','getzy','parking-manager']},
   {when:'Mar 2022 – Aug 2022',org:'Zonic Digital',badge:'Career Start',featured:false,
-   role:'Beginner Android Developer · Jr. Android',
+   role:'Junior Android Developer',
    pts:[
-     {k:'Industry Foundation',v:'Started my career as a beginner Android developer building foundational Kotlin screens and XML user interfaces.'},
-     {k:'Core Android Practice',v:'Learned Activity/Fragment lifecycles, REST API integration, structured local data handling, and practical debugging in live projects.'}
+     {k:'Industry Foundation',v:'Started my industry career building foundational native Kotlin screens and responsive XML user interfaces.'},
+     {k:'Core Android Engineering',v:'Mastered Activity/Fragment lifecycles, REST API integration, structured local data persistence, and practical debugging across client builds.'}
    ]},
   {when:'6 Months',org:'Weltech Institute',badge:'Training',featured:false,
    role:'Android Development Training',
@@ -814,14 +928,141 @@ if(matchMedia('(hover:hover)').matches){
   hs.addEventListener('pointerleave',()=>{av.style.transform=''});
 }
 
-/* Icons & Theme */
+/* Subtle Micro-Switch Web Audio (Zero External Assets, Gesture-Safe) */
+let sndOn=true,actx=null;
+try{sndOn=localStorage.getItem('pp-snd')!=='0'}catch(_){}
+function sfx(kind='tick'){
+  if(!sndOn||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  try{
+    const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+    if(!actx)actx=new AC();
+    if(actx.state==='suspended')actx.resume();
+    const t=actx.currentTime,o=actx.createOscillator(),g=actx.createGain();
+    o.type=kind==='snap'?'triangle':'sine';
+    o.frequency.setValueAtTime(kind==='snap'?640:520,t);
+    o.frequency.exponentialRampToValueAtTime(kind==='snap'?180:240,t+(kind==='snap'?0.032:0.018));
+    g.gain.setValueAtTime(kind==='snap'?0.055:0.03,t);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+(kind==='snap'?0.035:0.02));
+    o.connect(g);g.connect(actx.destination);o.start(t);o.stop(t+0.04);
+  }catch(_){}
+}
+
+/* Icons, Sound & View-Transitions Pull-Cord Theme Engine */
 const SUN='<svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg>';
 const MOON='<svg class="i" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>';
+const SND_ON='<svg class="i" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>';
+const SND_OFF='<svg class="i" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="m22 9-6 6m0-6 6 6"/></svg>';
 $('#burger').innerHTML='<svg class="i" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
 $('#shClose').innerHTML='<svg class="i" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>';
+
+const paintSnd=()=>{const b=$('#sndBtn');b.innerHTML=sndOn?SND_ON:SND_OFF;b.classList.toggle('snd-on',sndOn);b.setAttribute('aria-pressed',sndOn)};
+paintSnd();
+$('#sndBtn').onclick=()=>{sndOn=!sndOn;try{localStorage.setItem('pp-snd',sndOn?'1':'0')}catch(_){}paintSnd();if(sndOn)sfx('snap');toast(sndOn?'UI sound enabled':'UI sound muted')};
+
 const paintThm=()=>{const l=document.documentElement.getAttribute('data-theme')==='light';$('#thmBtn').innerHTML=l?MOON:SUN;document.querySelector('meta[name="theme-color"]').content=l?'#f6f6f8':'#0b0b0e'};
 paintThm();
-$('#thmBtn').onclick=()=>{const toLight=document.documentElement.getAttribute('data-theme')!=='light';if(toLight)document.documentElement.setAttribute('data-theme','light');else document.documentElement.removeAttribute('data-theme');try{localStorage.setItem('pp-mono-theme',toLight?'light':'dark')}catch(_){}paintThm()};
+
+function switchTheme(ox,oy){
+  sfx('snap');
+  const apply=()=>{
+    const toLight=document.documentElement.getAttribute('data-theme')!=='light';
+    if(toLight)document.documentElement.setAttribute('data-theme','light');
+    else document.documentElement.removeAttribute('data-theme');
+    try{localStorage.setItem('pp-mono-theme',toLight?'light':'dark')}catch(_){}
+    paintThm();
+  };
+  if(ox!=null&&oy!=null){
+    document.documentElement.style.setProperty('--vx',Math.round(ox)+'px');
+    document.documentElement.style.setProperty('--vy',Math.round(oy)+'px');
+  }
+  if(!document.startViewTransition||matchMedia('(prefers-reduced-motion:reduce)').matches){apply();return}
+  document.documentElement.classList.add('vt-rad');
+  const vt=document.startViewTransition(apply);
+  vt.finished.finally(()=>document.documentElement.classList.remove('vt-rad'));
+}
+$('#thmBtn').onclick=()=>{const r=$('#thmBtn').getBoundingClientRect();switchTheme(r.left+r.width/2,r.top+r.height/2)};
+
+/* Interactive Elastic Hanging Pull-Cord Bulb */
+(function(){
+  const cw=$('#cordWrap'),cl=$('#cordLine');if(!cw||!cl)return;
+  let dragging=false,startY=0,dy=0,moved=false;
+  const reset=()=>{cw.classList.remove('dragging');cl.style.height='52px'};
+  cw.addEventListener('pointerdown',e=>{
+    dragging=true;moved=false;startY=e.clientY;dy=0;
+    cw.classList.add('dragging');
+    try{cw.setPointerCapture(e.pointerId)}catch(_){}
+  });
+  cw.addEventListener('pointermove',e=>{
+    if(!dragging)return;
+    dy=Math.max(0,Math.min(54,e.clientY-startY));
+    if(dy>5)moved=true;
+    cl.style.height=(52+dy*0.85)+'px';
+  });
+  const end=e=>{
+    if(!dragging)return;dragging=false;reset();
+    if(!moved||dy>=14){
+      const r=cw.getBoundingClientRect();
+      switchTheme(r.left+r.width/2,r.bottom-16);
+    }
+  };
+  cw.addEventListener('pointerup',end);
+  cw.addEventListener('pointercancel',()=>{dragging=false;reset()});
+  cw.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();const r=cw.getBoundingClientRect();switchTheme(r.left+r.width/2,r.bottom-16)}});
+})();
+
+/* Interactive Android TV Kiosk & Wireless Pairing Simulator */
+(function(){
+  const dot=$('#kDot'),st=$('#kState'),code=$('#kCode'),mid=$('#kMidNode'),endN=$('#kEndNode'),pb=$('#kPairBtn'),lbBtn=$('#kLockBtn');
+  if(!dot||!pb)return;
+  let locked=true,pairing=false;
+  pb.onclick=()=>{
+    if(pairing)return;pairing=true;sfx('tick');
+    st.textContent='Scanning Wi-Fi subnet for Android TV...';
+    mid.classList.remove('lit');endN.classList.remove('lit');
+    pb.disabled=true;
+    let ticks=0;
+    const iv=setInterval(()=>{
+      ticks++;
+      code.textContent='PIN · '+String(Math.floor(100000+Math.random()*899999)).replace(/(\d{3})(\d{3})/,'$1 $2');
+      if(ticks>=8){
+        clearInterval(iv);pairing=false;pb.disabled=false;sfx('snap');
+        const pin=Math.random()>.5?'363 824':String(Math.floor(100000+Math.random()*899999)).replace(/(\d{3})(\d{3})/,'$1 $2');
+        code.textContent='PIN · '+pin;
+        st.textContent='Wireless Controller Paired · Media Sync Active';
+        mid.textContent='ADB Wireless Paired ✓';
+        mid.classList.add('lit');endN.classList.add('lit');
+      }
+    },55);
+  };
+  lbBtn.onclick=()=>{
+    locked=!locked;sfx('snap');
+    dot.classList.toggle('on',locked);
+    st.textContent=locked?'Kiosk Locked · Custom Launcher Active':'Admin Exit · Standard Launcher Standby';
+    mid.textContent=locked?'Custom Launcher':'Admin Exit Mode';
+    mid.classList.toggle('lit',locked);
+  };
+})();
+
+/* Smart Context-Aware Cursor Pill (Desktop fine-pointer only) */
+(function(){
+  const cur=$('#cur'),lbl=$('#curLbl');
+  if(!cur||!matchMedia('(hover:hover) and (pointer:fine)').matches)return;
+  let cx=-60,cy=-60,tx=-60,ty=-60,raf=0;
+  function step(){
+    cx+=(tx-cx)*0.24;cy+=(ty-cy)*0.24;
+    const off=cur.classList.contains('pill')?14:-5;
+    cur.style.transform=`translate3d(${cx+off}px,${cy+off}px,0)`;
+    if(Math.abs(tx-cx)>0.2||Math.abs(ty-cy)>0.2)raf=requestAnimationFrame(step);else raf=0;
+  }
+  document.addEventListener('pointermove',e=>{
+    tx=e.clientX;ty=e.clientY;cur.classList.add('vis');
+    const hit=e.target.closest('[data-cur],.pitem,.sh-fig');
+    const txt=hit?(hit.dataset.cur||(hit.classList.contains('pitem')?'Inspect ↗':hit.classList.contains('sh-fig')?'Zoom +':'')):'';
+    if(txt){lbl.textContent=txt;cur.classList.add('pill')}else{cur.classList.remove('pill')}
+    if(!raf)raf=requestAnimationFrame(step);
+  },{passive:true});
+  document.addEventListener('pointerleave',()=>cur.classList.remove('vis'));
+})();
 
 /* Unified 60fps rAF Scroll: Top Progress + Smart Sticky Header + Experience Timeline Rail */
 const hdrEl=$('header'),progEl=$('#prog');
@@ -847,6 +1088,14 @@ function onScrollFrame(){
 addEventListener('scroll',()=>{if(!scRaf)scRaf=requestAnimationFrame(onScrollFrame)},{passive:true});
 onScrollFrame();
 
+/* Glider Helpers for Sliding Pills (#menu & #pfilters) */
+function moveGlider(gl,target){
+  if(!gl||!target){if(gl)gl.classList.remove('vis');return}
+  gl.style.width=target.offsetWidth+'px';
+  gl.style.transform=`translate3d(${target.offsetLeft}px,0,0)`;
+  gl.classList.add('vis');
+}
+
 /* Hero Marquee */
 (function(){
   const items=['Kotlin','Flutter','Android TV','Kiosk Mode','Custom Launcher','ExoPlayer','CameraX','ML Kit & TFLite','Google Maps','Mapbox','Background GPS','Push Notifications','In-App Purchases','Bluetooth Printing','Google Cloud Console','Firebase Console'];
@@ -854,14 +1103,14 @@ onScrollFrame();
   $('#mtrack').innerHTML=row;
 })();
 
-/* Render 10 Real Projects in Staggered 2-Col Editorial Grid */
+/* Render 10 Real Projects in Staggered 2-Col Editorial Grid + Sliding Filter Pill */
 const pf=$('#pfilters'),pg=$('#pgrid');
 pg.classList.add('is-all');
 const CATS=['All','Flutter','Android','Android TV'];
-pf.innerHTML=CATS.map((c,i)=>{const cnt=c==='All'?PROJECTS.length:PROJECTS.filter(p=>p.cat===c).length;return `<button class="pill${i?'':' on'}" data-c="${c}" role="tab" aria-selected="${!i}">${c}<span class="pill-cnt">${cnt}</span></button>`}).join('');
+pf.innerHTML='<span class="f-glider" id="fGlider" aria-hidden="true"></span>'+CATS.map((c,i)=>{const cnt=c==='All'?PROJECTS.length:PROJECTS.filter(p=>p.cat===c).length;return `<button class="pill${i?'':' on'}" data-c="${c}" role="tab" aria-selected="${!i}">${c}<span class="pill-cnt">${cnt}</span></button>`}).join('');
 pg.innerHTML=PROJECTS.map((p,idx)=>{
   const thumbs=p.cardScreens||p.screens.slice(0,3);
-  return `<button class="bcard pitem rv" style="transition-delay:${(idx%2)*70}ms" data-id="${p.id}" data-cat="${p.cat}" type="button">
+  return `<button class="bcard pitem rv" style="transition-delay:${(idx%2)*70}ms" data-id="${p.id}" data-cat="${p.cat}" data-cur="Inspect ↗" type="button">
   <div class="p-head">
     <div class="p-id">
       <img class="p-ico" src="${p.icon}" alt="${p.name}">
@@ -880,20 +1129,37 @@ pg.innerHTML=PROJECTS.map((p,idx)=>{
   </div>
   <p class="p-desc">${p.subtitle}</p>
   <div class="ptags">${p.tech.slice(0,4).map(t=>`<span>${t}</span>`).join('')}</div>
-  <div class="p-cta"><span>View details</span><span>→</span></div>
+  <div class="p-cta"><span>View Case Study</span><span>→</span></div>
 </button>`}).join('');
+
+const fGlider=$('#fGlider');
+requestAnimationFrame(()=>moveGlider(fGlider,$('.pill.on',pf)));
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{moveGlider(fGlider,$('.pill.on',pf));moveGlider($('#mGlider'),$('#menu a.on'))});
+addEventListener('resize',()=>{moveGlider(fGlider,$('.pill.on',pf));moveGlider($('#mGlider'),$('#menu a.on'))});
 
 pf.onclick=e=>{
   const b=e.target.closest('.pill');if(!b)return;
+  sfx('tick');
   $$('.pill',pf).forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-selected',x===b)});
+  moveGlider(fGlider,b);
   const isAll=b.dataset.c==='All';
   pg.classList.toggle('is-all',isAll);
   $$('.pitem',pg).forEach(card=>card.classList.toggle('hide',!isAll&&card.dataset.cat!==b.dataset.c));
+  requestAnimationFrame(onScrollFrame);
 };
 
-/* Apple Sheet Modal + Top/Bottom Navigation + Share Deep-Link + Lightbox */
+/* Apple Sheet Modal + Top/Bottom Navigation + Screens/Architecture Switch + Device Frames + Lightbox */
 const sheet=$('#sheet'),lb=$('#lb');
-let curId=null,lbList=[],lbIdx=0;
+let curId=null,lbList=[],lbIdx=0,framedMode=false;
+
+function buildArchSteps(p){
+  const t=p.tech;
+  return [
+    {title:'Client Presentation',detail:`Built in ${p.cat==='Flutter'?'Flutter & Dart':p.cat} across responsive ${p.isTv?'10-ft TV & mobile':'mobile'} layouts.`,badge:t.slice(0,2).join(' · ')},
+    {title:'Core State & Services',detail:p.contributions[0]?p.contributions[0].text.slice(0,115)+'…':p.subtitle,badge:t.slice(2,5).join(' · ')||'State & Logic'},
+    {title:'Deployment & Telemetry',detail:`Verified release pipeline across ${p.play?'Google Play':''}${p.play&&p.appstore?' & ':''}${p.appstore?'App Store':''}${!p.play&&!p.appstore?(p.web?'Enterprise TV Fleet':'Open Source CI'):''}.`,badge:t.slice(-2).join(' · ')}
+  ];
+}
 
 function showLb(idx){
   if(!lbList.length)return;
@@ -914,6 +1180,7 @@ function stepProject(dir){
   if(!curId)return;
   const idx=PROJECTS.findIndex(x=>x.id===curId);
   if(idx<0)return;
+  sfx('tick');
   openSheet(PROJECTS[(idx+dir+PROJECTS.length)%PROJECTS.length].id,true);
 }
 
@@ -937,24 +1204,34 @@ function openSheet(id,updateHash=true){
   if(p.github)links.push(`<a class="btn pri sm" href="${p.github}" target="_blank" rel="noopener">GitHub Repo ↗</a>`);
 
   const gal=(p.isTv?`
-    <div>
+    <div id="shGal" class="sh-gal${framedMode?' framed':''}">
       <h4>Android TV Player (3 Screens) &amp; Wireless Controller (6 Screens) · Click any screen to zoom</h4>
-      <div class="sh-tv-grid">${[0,1,2].map(i=>`<figure class="sh-fig tv" data-idx="${i}" data-src="${p.screens[i]}" data-cap="${p.captions[i]}"><div class="sh-frame"><img src="${p.screens[i]}" alt="${p.name} TV ${i+1}"></div><figcaption>${p.captions[i]}</figcaption></figure>`).join('')}</div>
-      <div class="sh-mob-grid">${[3,4,5,6,7,8].map(i=>`<figure class="sh-fig" data-idx="${i}" data-src="${p.screens[i]}" data-cap="${p.captions[i]}"><div class="sh-frame"><img src="${p.screens[i]}" alt="${p.name} Controller ${i+1}"></div><figcaption>${p.captions[i]}</figcaption></figure>`).join('')}</div>
+      <div class="sh-tv-grid">${[0,1,2].map(i=>`<figure class="sh-fig tv" data-cur="Zoom +" data-idx="${i}" data-src="${p.screens[i]}" data-cap="${p.captions[i]}"><div class="sh-frame"><img src="${p.screens[i]}" alt="${p.name} TV ${i+1}"></div><figcaption>${p.captions[i]}</figcaption></figure>`).join('')}</div>
+      <div class="sh-mob-grid">${[3,4,5,6,7,8].map(i=>`<figure class="sh-fig" data-cur="Zoom +" data-idx="${i}" data-src="${p.screens[i]}" data-cap="${p.captions[i]}"><div class="sh-frame"><img src="${p.screens[i]}" alt="${p.name} Controller ${i+1}"></div><figcaption>${p.captions[i]}</figcaption></figure>`).join('')}</div>
     </div>`:`
-    <div>
+    <div id="shGal" class="sh-gal${framedMode?' framed':''}">
       <h4>App Gallery (${p.screens.length} Real Screenshots) · Click any screen to zoom</h4>
-      <div class="sh-mob-grid">${p.screens.map((s,i)=>{const cap=p.captions&&p.captions[i]?p.captions[i]:`Screen ${i+1}`;return `<figure class="sh-fig" data-idx="${i}" data-src="${s}" data-cap="${p.name} · ${cap}"><div class="sh-frame"><img src="${s}" alt="${p.name} ${cap}"></div><figcaption>${cap}</figcaption></figure>`}).join('')}</div>
+      <div class="sh-mob-grid">${p.screens.map((s,i)=>{const cap=p.captions&&p.captions[i]?p.captions[i]:`Screen ${i+1}`;return `<figure class="sh-fig" data-cur="Zoom +" data-idx="${i}" data-src="${s}" data-cap="${p.name} · ${cap}"><div class="sh-frame"><img src="${s}" alt="${p.name} ${cap}"></div><figcaption>${cap}</figcaption></figure>`}).join('')}</div>
     </div>`);
+
+  const archHtml=`<div id="shArc" class="sh-arc hide"><h4>System &amp; Data Flow Architecture</h4><div class="arch-flow">${buildArchSteps(p).map((s,i)=>`<div class="af-step"><span class="af-idx">0${i+1} Layer</span><div class="af-t">${s.title}</div><div class="af-d">${s.detail}</div><span class="af-b">${s.badge}</span></div>`).join('')}</div></div>`;
 
   $('#shBody').innerHTML=`
     <div class="sh-links">
       <div class="sh-links-l">${links.join('')}</div>
-      <button class="btn sm" id="shShare" type="button">Copy Link</button>
+      <button class="btn sm" id="shShare" type="button" data-cur="Copy">Copy Link</button>
+    </div>
+    <div class="sh-tools">
+      <div class="sh-seg" role="tablist" aria-label="Inspection view">
+        <button class="sh-segb on" id="shTabScr" type="button" role="tab" aria-selected="true">Screens</button>
+        <button class="sh-segb" id="shTabArc" type="button" role="tab" aria-selected="false">Architecture</button>
+      </div>
+      <button class="btn sm" id="shFrameBtn" type="button" aria-pressed="${framedMode}">Device Frame: ${framedMode?'On':'Off'}</button>
     </div>
     ${gal}
-    <div><h4>What It Does</h4><p>${p.problem}</p></div>
-    <div><h4>Key Contributions</h4><ul>${p.contributions.map(c=>`<li><strong>${c.label}:</strong> ${c.text}</li>`).join('')}</ul></div>
+    ${archHtml}
+    <div><h4>Overview</h4><p>${p.problem}</p></div>
+    <div><h4>Engineering Contributions</h4><ul>${p.contributions.map(c=>`<li><strong>${c.label}:</strong> ${c.text}</li>`).join('')}</ul></div>
     <div class="ptags">${p.tech.map(t=>`<span>${t}</span>`).join('')}</div>
     <div class="sh-foot">
       <button class="btn sm" id="shPrevF" type="button">← ${prevP.name}</button>
@@ -963,7 +1240,13 @@ function openSheet(id,updateHash=true){
     </div>
     <div class="sh-hint">Use ← / → keys to switch apps · Click any screenshot to zoom · Esc to close</div>`;
 
+  const tScr=$('#shTabScr'),tArc=$('#shTabArc'),gEl=$('#shGal'),aEl=$('#shArc'),fb=$('#shFrameBtn');
+  tScr.onclick=()=>{sfx('tick');tScr.classList.add('on');tArc.classList.remove('on');gEl.classList.remove('hide');aEl.classList.add('hide');fb.style.display=''};
+  tArc.onclick=()=>{sfx('tick');tArc.classList.add('on');tScr.classList.remove('on');aEl.classList.remove('hide');gEl.classList.add('hide');fb.style.display='none'};
+  fb.onclick=()=>{sfx('snap');framedMode=!framedMode;gEl.classList.toggle('framed',framedMode);fb.textContent='Device Frame: '+(framedMode?'On':'Off');fb.setAttribute('aria-pressed',framedMode)};
+
   $('#shShare').onclick=async()=>{
+    sfx('tick');
     const url=location.origin==='null'||location.protocol==='file:'?`https://parth5087.github.io/#${p.id}`:`${location.origin}${location.pathname}#${p.id}`;
     try{await navigator.clipboard.writeText(url)}catch(_){}
     toast('Project link copied');
@@ -992,7 +1275,7 @@ $('#shBody').addEventListener('click',e=>{
   const all=[...$$('.sh-fig',$('#shBody'))].map(el=>({src:el.dataset.src,cap:el.dataset.cap}));
   openLightbox(all,+(f.dataset.idx||0));
 });
-pg.onclick=e=>{const c=e.target.closest('.pitem');if(c)openSheet(c.dataset.id)};
+pg.onclick=e=>{const c=e.target.closest('.pitem');if(c){sfx('tick');openSheet(c.dataset.id)}};
 
 addEventListener('keydown',e=>{
   if(lb.open){
@@ -1018,8 +1301,8 @@ let selSk='Flutter';
 function drawStack(){
   $('#schips').innerHTML=SKILLS.map(s=>`<button class="schip${s===selSk?' on':''}" data-s="${s}" type="button">${s}</button>`).join('');
   const hits=PROJECTS.filter(p=>p.tech.some(t=>t.toLowerCase()===selSk.toLowerCase())||(selSk==='Android TV'&&p.cat==='Android TV'));
-  $('#smatches').innerHTML=`<span>Shipped in ${hits.length} project${hits.length===1?'':'s'}:</span>`+hits.map(p=>`<button class="mchip" data-open="${p.id}" type="button">${p.name} →</button>`).join('');
-  $$('.schip').forEach(b=>b.onclick=()=>{selSk=b.dataset.s;drawStack()});
+  $('#smatches').innerHTML=`<span>Deployed across ${hits.length} application${hits.length===1?'':'s'}:</span>`+hits.map(p=>`<button class="mchip" data-open="${p.id}" type="button">${p.name} →</button>`).join('');
+  $$('.schip').forEach(b=>b.onclick=()=>{sfx('tick');selSk=b.dataset.s;drawStack()});
   $$('.mchip').forEach(b=>b.onclick=()=>openSheet(b.dataset.open));
 }
 drawStack();
@@ -1035,23 +1318,37 @@ $('#ledger').innerHTML=EXP.map(e=>`<div class="bcard lrow rv${e.featured?' featu
 </div>`).join('');
 $('#ledger').addEventListener('click',e=>{const b=e.target.closest('.lapp-chip');if(b)openSheet(b.dataset.open)});
 
-/* Reveal + smooth counters + active nav scroll tracking */
+/* Scramble Kicker Decode + Reveal + Counters + Sliding Menu Glider + Mobile Dock Active Sync */
+const SCR='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+function decodeEl(el){
+  if(el.dataset.decDone||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  el.dataset.decDone=1;
+  const orig=el.textContent;let fr=0;
+  const iv=setInterval(()=>{
+    fr++;
+    el.textContent=orig.split('').map((ch,i)=>ch===' '||i<fr?ch:SCR[Math.floor(Math.random()*SCR.length)]).join('');
+    if(fr>=orig.length){clearInterval(iv);el.textContent=orig}
+  },22);
+}
+const decObs=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){decodeEl(en.target);decObs.unobserve(en.target)}}),{threshold:.4});
+$$('[data-dec]').forEach(el=>decObs.observe(el));
+
 function countEl(el){if(el.dataset.done)return;el.dataset.done=1;const n=+el.dataset.n,s=el.dataset.s||'',t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/800);el.textContent=Math.round(n*(1-Math.pow(1-k,3)))+s;if(k<1)requestAnimationFrame(f)})(t0)}
 const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){const t=en.target;t.classList.add('in');$$('.cnt',t).forEach(countEl);io.unobserve(t);if(t.style.transitionDelay)setTimeout(()=>{t.style.transitionDelay='0ms'},540)}}),{threshold:.08});
 $$('.rv').forEach(el=>io.observe(el));
 
-const navLinks=$$('#menu a');
-const secObs=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){const id=en.target.id?'#'+en.target.id:'';navLinks.forEach(a=>a.classList.toggle('on',a.getAttribute('href')===id))}}),{rootMargin:'-35% 0px -55% 0px'});
+const navLinks=$$('#menu a'),mobLinks=$$('#mobDock a'),mGlider=$('#mGlider');
+const secObs=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){const id=en.target.id?'#'+en.target.id:'';navLinks.forEach(a=>a.classList.toggle('on',a.getAttribute('href')===id));mobLinks.forEach(a=>a.classList.toggle('on',a.getAttribute('href')===id));moveGlider(mGlider,$('#menu a.on'))}}),{rootMargin:'-35% 0px -55% 0px'});
 $$('main section').forEach(s=>secObs.observe(s));
 
 /* Nav, Toast, Copy & Real Contact Form */
 $('#burger').onclick=()=>{const o=$('#menu').classList.toggle('open');$('#burger').setAttribute('aria-expanded',o)};
 $$('#menu a').forEach(a=>a.onclick=()=>$('#menu').classList.remove('open'));
 const toast=t=>{const el=$('#toast');el.textContent=t;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1800)};
-[$('#hcopy'),$('#copyBtn')].forEach(b=>b.onclick=async()=>{try{await navigator.clipboard.writeText('parthpatel5087@gmail.com')}catch(_){}toast('Email copied')});
+[$('#hcopy'),$('#copyBtn')].forEach(b=>b.onclick=async()=>{sfx('tick');try{await navigator.clipboard.writeText('parthpatel5087@gmail.com')}catch(_){}toast('Email copied to clipboard')});
 
 $('#cform').onsubmit=async e=>{
-  e.preventDefault();
+  e.preventDefault();sfx('tick');
   const f=e.target,d=new FormData(f),n=d.get('n'),em=d.get('e'),m=d.get('m');
   const btn=f.querySelector('button[type="submit"]'),stat=$('#fstat');
   btn.disabled=true;btn.textContent='Sending…';stat.textContent='';
@@ -1063,17 +1360,17 @@ $('#cform').onsubmit=async e=>{
     });
     if(res.ok){
       f.reset();
-      stat.textContent='Message delivered to parthpatel5087@gmail.com ✓';
-      toast('Message sent');
+      stat.textContent='Enquiry delivered to parthpatel5087@gmail.com ✓';
+      toast('Enquiry sent');sfx('snap');
     }else{throw new Error('fallback')}
   }catch(_){
     location.href=`mailto:parthpatel5087@gmail.com?subject=${encodeURIComponent('Portfolio enquiry from '+n)}&body=${encodeURIComponent(m+'\n\n'+n+' ('+em+')')}`;
     stat.textContent='Opening mail client…';
   }finally{
-    btn.disabled=false;btn.textContent='Send Message';
+    btn.disabled=false;btn.textContent='Send Enquiry';
   }
 };
-$('#copymsg').onclick=async()=>{const d=new FormData($('#cform'));try{await navigator.clipboard.writeText(`To: parthpatel5087@gmail.com\nFrom: ${d.get('n')||''} (${d.get('e')||''})\n\n${d.get('m')||''}`);toast('Message copied')}catch(_){toast('Copy failed')}};
+$('#copymsg').onclick=async()=>{sfx('tick');const d=new FormData($('#cform'));try{await navigator.clipboard.writeText(`To: parthpatel5087@gmail.com\nFrom: ${d.get('n')||''} (${d.get('e')||''})\n\n${d.get('m')||''}`);toast('Enquiry copied')}catch(_){toast('Copy failed')}};
 checkHash();
 </script>
 </body>
