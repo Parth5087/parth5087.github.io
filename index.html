@@ -65,11 +65,12 @@ html[data-theme=light]{
   --accent:#d95a38;
   --sh:0 14px 34px -22px rgba(20,20,22,.14),0 1px 2px rgba(20,20,22,.05);
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;tap-highlight-color:transparent}
 html{scroll-behavior:smooth;scroll-padding-top:88px;background:var(--bg);color:var(--ink)}
 body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip;transition:background-color .25s var(--ease),color .25s var(--ease)}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+.btn,.navbtn,.pitem,.schip,.pill,.ctopic,.lhead,.w-card,.vmode-b,.anode{-webkit-user-select:none;user-select:none}
 img{display:block;max-width:100%}
 ::selection{background:var(--ink);color:var(--bg)}
 .wrap{max-width:var(--mw);margin:0 auto;padding:0 24px}
@@ -78,9 +79,11 @@ img{display:block;max-width:100%}
 :focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:10px}
 svg.i{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
 
-/* Monochrome top radial sheen */
+/* Monochrome Top Radial Sheen + Scroll-Shifted Ambient Studio Glow (Gridless Depth) */
 .sheen{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(880px 420px at 50% -10%,rgba(255,255,255,.07),transparent 70%)}
 html[data-theme=light] .sheen{background:radial-gradient(880px 420px at 50% -10%,rgba(0,0,0,.035),transparent 70%)}
+.aura{position:fixed;left:50%;top:-14vh;width:820px;height:520px;margin-left:-410px;border-radius:50%;pointer-events:none;z-index:0;background:radial-gradient(closest-side,rgba(224,94,60,.075),rgba(255,255,255,.03) 55%,transparent 100%);filter:blur(40px);transform:translate3d(calc((var(--sp,0) - .5) * 18vw),calc(var(--sp,0) * 34vh),0);will-change:transform}
+html[data-theme=light] .aura{background:radial-gradient(closest-side,rgba(245,158,11,.085),rgba(20,20,22,.025) 55%,transparent 100%)}
 #prog{position:fixed;left:0;top:0;height:2px;width:100%;background:var(--ink);transform-origin:0 50%;transform:scaleX(0);z-index:90;opacity:.75;pointer-events:none}
 
 /* Floating Pill Navbar with Smart Scroll Auto-Hide */
@@ -237,13 +240,24 @@ html[data-theme=light] .stage-word span{color:rgba(20,20,22,.05)}
 html[data-theme=light] .av-float img{filter:drop-shadow(0 16px 26px rgba(180,83,9,.14))}
 .hero-stage:hover .av-float img{animation-play-state:paused}
 
-/* Monochrome Stack Marquee Strip */
-.marquee-bar{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2);overflow:hidden;padding:16px 0;mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent)}
-.mtrack{display:flex;width:max-content;gap:32px;animation:mq 34s linear infinite;will-change:transform}
-.marquee-bar:hover .mtrack{animation-play-state:paused}
+/* Quick Mobile/Flutter Boot Curtain (Once Per Session) */
+.boot{position:fixed;inset:0;z-index:999;background:#09090c;display:grid;place-items:center;transition:transform .58s cubic-bezier(.76,0,.24,1),opacity .35s ease;pointer-events:all}
+.boot.done{transform:translate3d(0,-100%,0);pointer-events:none}
+.boot-in{display:grid;gap:12px;justify-items:center;text-align:center}
+.boot-name{font-size:clamp(22px,3vw,30px);font-weight:700;letter-spacing:.14em;color:#fafafa}
+.boot-sub{font-family:var(--mono);font-size:11.5px;color:#888894;letter-spacing:.06em}
+.boot-bar{width:140px;height:2px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}
+.boot-bar i{display:block;height:100%;width:100%;background:#fafafa;transform-origin:left center;animation:bootFill .55s cubic-bezier(.22,1,.36,1) both}
+@keyframes bootFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* Continuous Kinetic Editorial Ticker Ribbon (Never Pauses on Hover) */
+.marquee-bar{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2);overflow:hidden;padding:18px 0;mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent)}
+.mtrack{display:flex;align-items:center;width:max-content;gap:28px;animation:mq 38s linear infinite;will-change:transform}
 @keyframes mq{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
-.mitem{font-family:var(--mono);font-size:12.5px;font-weight:400;color:var(--mut);display:inline-flex;align-items:center;gap:10px;white-space:nowrap}
-.mitem i{width:4px;height:4px;border-radius:50%;background:var(--accent);opacity:.85}
+.mitem{font-size:clamp(13px,1.35vw,16px);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);display:inline-flex;align-items:center;gap:28px;white-space:nowrap}
+.mitem.hol{color:transparent;-webkit-text-stroke:1px var(--mut)}
+html[data-theme=light] .mitem.hol{-webkit-text-stroke:1px rgba(20,20,22,.42)}
+.mitem i{width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.9}
 
 /* Sections & Calm Sentence-Case Headers with Kinetic Clip Reveal */
 .sec{padding:72px 0;border-top:1px solid var(--line)}
@@ -263,9 +277,12 @@ h2.st.in{opacity:1;transform:none}
 .bcard h3{font-size:20px;font-weight:600;letter-spacing:-.02em}
 .bcard p{color:var(--mut);font-size:14px;margin-top:8px;line-height:1.6}
 
-.arch{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:8px;margin-top:22px;padding:14px;border-radius:14px;background:var(--bg-2);border:1px solid var(--line)}
-.anode{padding:10px;border-radius:10px;background:var(--card-solid);border:1px solid var(--line);text-align:center;font-family:var(--mono);font-size:11.5px;color:var(--ink-2);transition:transform .22s var(--ease),border-color .22s,color .22s}
+.arch{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:8px;margin-top:20px;padding:14px;border-radius:14px;background:var(--bg-2);border:1px solid var(--line)}
+.anode{padding:10px;border-radius:10px;background:var(--card-solid);border:1px solid var(--line);text-align:center;font-family:var(--mono);font-size:11.5px;color:var(--ink-2);cursor:pointer;transition:transform .22s var(--ease),border-color .22s,color .22s,background-color .22s}
 .anode:hover{transform:translateY(-2px);border-color:var(--line-hi);color:var(--ink)}
+.anode.on{background:var(--btn-bg);color:var(--btn-ink);border-color:var(--btn-bg);font-weight:500}
+.arch-detail{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--bg-2);border:1px solid var(--line);font-size:12.5px;color:var(--ink-2);line-height:1.55}
+.arch-detail b{color:var(--ink);font-weight:600}
 .alink{height:2px;width:28px;background:var(--line-hi);position:relative;overflow:hidden}
 .alink::after{content:"";position:absolute;inset:0;width:50%;background:var(--ink);animation:sig 1.8s linear infinite}
 @keyframes sig{from{transform:translateX(-100%)}to{transform:translateX(200%)}}
@@ -303,10 +320,12 @@ h2.st.in{opacity:1;transform:none}
 .pgrid.hide,.wheel-wrap.hide{display:none}
 .wheel-wrap{position:relative;border-radius:20px;border:1px solid var(--line);background:radial-gradient(110% 85% at 50% 0%,rgba(255,255,255,.04) 0%,transparent 65%),var(--card);padding:26px 16px 24px;overflow:hidden}
 html[data-theme=light] .wheel-wrap{background:radial-gradient(110% 85% at 50% 0%,rgba(255,255,255,.9) 0%,var(--bg-2) 100%)}
-.wheel-stage{position:relative;height:360px;perspective:1150px;display:flex;align-items:center;justify-content:center;touch-action:pan-y;user-select:none}
+.wheel-stage{position:relative;height:370px;perspective:1150px;display:flex;align-items:center;justify-content:center;touch-action:pan-y;user-select:none;cursor:grab}
+.wheel-stage.dragging{cursor:grabbing}
+.wheel-stage.dragging .w-card{transition:none}
 .w-card{position:absolute;width:min(330px,76vw);border-radius:16px;border:1px solid var(--line-hi);background:var(--card-solid);padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 24px 48px -18px rgba(0,0,0,.65);transition:transform .44s cubic-bezier(.22,1,.36,1),opacity .36s,border-color .2s;cursor:pointer;will-change:transform}
 html[data-theme=light] .w-card{box-shadow:0 18px 36px -16px rgba(20,20,22,.16)}
-.w-card.cur-w{border-color:var(--ink)}
+.w-card.cur-w{border-color:var(--ink);box-shadow:0 28px 54px -18px rgba(0,0,0,.78),0 14px 28px -20px rgba(255,255,255,.15)}
 .w-prev{height:210px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);padding:10px;display:flex;gap:8px;align-items:center;justify-content:center;overflow:hidden}
 .w-prev img{height:100%;width:auto;max-width:46%;object-fit:contain;border-radius:6px;border:1px solid var(--line)}
 .w-prev img.tvimg{max-width:70%}
@@ -350,7 +369,29 @@ html[data-theme=light] .p-prev img{box-shadow:0 8px 18px -10px rgba(20,20,22,.16
 .pitem p.p-desc{font-size:14px;color:var(--ink-2);line-height:1.55;margin:0}
 .ptags{display:flex;gap:8px;flex-wrap:wrap}
 .ptags span{font-family:var(--mono);font-size:11.5px;padding:4px 10px;border-radius:8px;background:var(--elevated);border:1px solid var(--line);color:var(--ink-2)}
-.p-cta{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:500;color:var(--ink);padding-top:12px;border-top:1px solid var(--line)}
+.p-cta{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13px;font-weight:500;color:var(--ink);padding-top:12px;border-top:1px solid var(--line)}
+.p-plats{display:inline-flex;align-items:center;gap:8px;color:var(--mut);font-family:var(--mono);font-size:11px}
+.p-plats svg{width:13px;height:13px;fill:currentColor;flex:none;opacity:.85}
+.pitem{will-change:transform}
+
+/* Case Study Modal Summary Strip + Numbered Engineering Breakdown + Resume Modal */
+.sh-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.sh-stat{padding:12px 14px;border-radius:12px;background:var(--bg-2);border:1px solid var(--line)}
+.sh-stat-k{font-family:var(--mono);font-size:10.5px;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}
+.sh-stat-v{font-size:13.5px;font-weight:600;color:var(--ink);margin-top:4px;line-height:1.35}
+.sh-contribs{display:grid;gap:8px}
+.sh-citem{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:12px 14px;border-radius:12px;background:var(--bg-2);border:1px solid var(--line);align-items:start}
+.sh-cnum{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--accent);padding-top:2px}
+.sh-ctxt{font-size:13.5px;color:var(--ink-2);line-height:1.58}
+.sh-ctxt strong{color:var(--ink);font-weight:600}
+.res-sum{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.res-box{padding:14px 16px;border-radius:12px;background:var(--bg-2);border:1px solid var(--line);font-size:13px;color:var(--ink-2);line-height:1.6}
+.res-box b{display:block;color:var(--ink);font-size:13.5px;margin-bottom:5px}
+.res-sheet{display:grid;gap:14px;padding:18px;border-radius:14px;background:var(--bg-2);border:1px solid var(--line)}
+.res-sec h5{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.res-list{display:grid;gap:6px;font-size:13px;color:var(--ink-2);line-height:1.55}
+.res-list strong{color:var(--ink);font-weight:600}
+@media(max-width:620px){.sh-stats,.res-sum{grid-template-columns:1fr}}
 .p-pdot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:6px;vertical-align:1px}
 .kpis-proof{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .kpis-proof span{padding:4px 9px;border-radius:99px;background:var(--bg-2);border:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--mut)}
@@ -534,15 +575,26 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
   .p-prev{height:176px}
   .sh-mob-grid,.sh-mob-grid.n6{grid-template-columns:repeat(2,minmax(0,1fr))}
   .sh-fig img{height:auto;max-height:220px}
-  .ledger{padding-left:0}.ledger::before,.lrow::after{display:none}
+  .ledger{padding-left:0}.ledger::before,.ledger::after,.lrow::after{display:none}
+  .lhead{position:relative;flex-direction:column;gap:10px}
+  .lhead>div:first-child{padding-right:34px}
+  .lchev{position:absolute;top:0;right:0}
   .cgrid,.lrow{padding:20px}.sh-h,.sh-b{padding:18px}
 }
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.mtrack{flex-wrap:wrap;width:100%;justify-content:center}html.vt-rad::view-transition-new(root){animation:none!important}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.boot{display:none!important}.rv,.sec .st{opacity:1;transform:none}.mtrack{flex-wrap:wrap;width:100%;justify-content:center}html.vt-rad::view-transition-new(root){animation:none!important}}
 </style>
 </head>
 <body>
 <div class="sheen" aria-hidden="true"></div>
+<div class="aura" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
+<div class="boot" id="boot" aria-hidden="true">
+  <div class="boot-in">
+    <div class="boot-name">PARTH PATEL</div>
+    <div class="boot-sub">Kotlin · Flutter · Android TV — Ready</div>
+    <div class="boot-bar"><i></i></div>
+  </div>
+</div>
 <div id="prog"></div>
 
 <header>
@@ -567,7 +619,7 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
       <div class="navr">
         <button class="navbtn sq" id="sndBtn" type="button" aria-label="Toggle switch sound" title="Toggle subtle UI click sound" aria-pressed="true"></button>
         <button class="navbtn sq" id="thmBtn" type="button" aria-label="Toggle light/dark theme"></button>
-        <a class="navbtn resume" href="Parth_Patel_Resume.pdf" target="_blank" rel="noopener" download title="Download Resume">Resume ↓</a>
+        <button class="navbtn resume" type="button" data-resume title="Preview or Download Resume">Resume ↗</button>
         <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false"></button>
       </div>
     </nav>
@@ -604,7 +656,7 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
         <p class="lead">Mobile Engineer with 4+ years building native Kotlin apps, kiosk-mode Android TV signage systems with custom default launchers &amp; edge AI, and cross-platform Flutter products across Google Play &amp; App Store.</p>
         <div class="hacts">
           <a class="btn pri" href="#work">Explore Apps ↓</a>
-          <a class="btn" href="Parth_Patel_Resume.pdf" target="_blank" rel="noopener" download>Download Resume</a>
+          <button class="btn" type="button" data-resume>Preview Resume ↗</button>
         </div>
         <div class="hlinks">
           <a href="https://github.com/Parth5087" target="_blank" rel="noopener">GitHub ↗</a>
@@ -623,13 +675,13 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
         <div class="stage-mesh" aria-hidden="true"></div>
         <div class="stage-word" id="stageWord" aria-hidden="true"><span>MOBILE</span><span>ENGINEER<em>.</em></span></div>
         <div class="av-float" id="avFloat">
-          <img src="assets/parth-cutout.webp" alt="Parth Patel 3D Avatar" width="680" height="783" fetchpriority="high">
+          <img src="assets/parth-cutout.webp" alt="Parth Patel 3D Avatar" width="680" height="783" fetchpriority="high" draggable="false">
         </div>
       </div>
     </div>
   </section>
 
-  <div class="marquee-bar" aria-label="Core technologies">
+  <div class="marquee-bar" aria-label="Core capabilities ticker">
     <div class="mtrack" id="mtrack"></div>
   </div>
 
@@ -649,13 +701,14 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
             <h3>Clean architecture across three platforms</h3>
             <p>From BLoC &amp; Provider state flows and In-App Purchases in Flutter to real-time foreground/background GPS tracking, kiosk lock with custom default launchers on Android TV, and on-device ML Kit + TensorFlow Lite inference.</p>
           </div>
-          <div class="arch" aria-hidden="true">
-            <div class="anode">Kotlin / Flutter UI</div>
-            <div class="alink"></div>
-            <div class="anode">BLoC · GetX · Kiosk</div>
-            <div class="alink"></div>
-            <div class="anode">GPS · Edge AI · Stores</div>
+          <div class="arch" id="archNodes" role="tablist" aria-label="Interactive architecture layers">
+            <button class="anode on" type="button" data-arch="ui" role="tab" aria-selected="true">Kotlin / Flutter UI</button>
+            <div class="alink" aria-hidden="true"></div>
+            <button class="anode" type="button" data-arch="state" role="tab" aria-selected="false">BLoC · GetX · Kiosk</button>
+            <div class="alink" aria-hidden="true"></div>
+            <button class="anode" type="button" data-arch="edge" role="tab" aria-selected="false">GPS · Edge AI · Stores</button>
           </div>
+          <div class="arch-detail" id="archDetail"></div>
         </div>
 
         <div class="bcard b-b rv">
@@ -787,7 +840,7 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
             <span>Android · TV · Flutter</span>
           </div>
           <div style="display:flex;gap:10px;flex-wrap:wrap">
-            <a class="btn pri" href="Parth_Patel_Resume.pdf" target="_blank" rel="noopener" download>Download Resume</a>
+            <button class="btn pri" type="button" data-resume>Preview Resume ↗</button>
             <a class="btn" href="https://www.linkedin.com/in/parth-patel-49233b217/" target="_blank" rel="noopener">LinkedIn ↗</a>
             <a class="btn" href="https://github.com/Parth5087" target="_blank" rel="noopener">GitHub ↗</a>
           </div>
@@ -857,6 +910,44 @@ dialog.lb::backdrop{background:rgba(0,0,0,.88)}
       <span id="lbCap"></span>
       <button class="btn sm" id="lbNext" type="button" aria-label="Next screenshot">→</button>
       <button class="btn sm" id="lbClose" type="button">Close</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="sheet" id="resSheet" aria-labelledby="resTitle">
+  <div class="sh-grip" aria-hidden="true"></div>
+  <div class="sh-h">
+    <div class="sh-hid">
+      <span class="mark">P</span>
+      <div style="min-width:0">
+        <div class="kicker">Curriculum Vitae · PDF</div>
+        <h3 id="resTitle" style="font-size:21px;font-weight:700;letter-spacing:-.02em;margin-top:2px">Parth Patel · Resume</h3>
+      </div>
+    </div>
+    <div class="sh-hacts">
+      <a class="btn pri sm" href="Parth_Patel_Resume.pdf" download="Parth_Patel_Resume.pdf">Download PDF ↓</a>
+      <a class="btn sm" href="Parth_Patel_Resume.pdf" target="_blank" rel="noopener">Open Tab ↗</a>
+      <button class="sh-x" id="resClose" aria-label="Close"></button>
+    </div>
+  </div>
+  <div class="sh-b">
+    <div class="res-sum">
+      <div class="res-box"><b>Experience · 4+ Years</b>GateTouch (Aug 2022–Present) · Zonic Digital (Mar–Aug 2022) · Android, Android TV &amp; Flutter</div>
+      <div class="res-box"><b>Education &amp; Scale</b>B.E. Information Technology · Silver Oak College (8.74 CGPA) · 10 Apps · 50K+ Downloads</div>
+    </div>
+    <div class="res-sheet">
+      <div class="res-sec">
+        <h5>Key Engineering Work</h5>
+        <div class="res-list">
+          <div><strong>AI AdFlux &amp; Controller:</strong> Android TV commercial digital signage in kiosk mode with custom default boot launcher, offline media sync, USB camera on-device ML Kit face detection &amp; wireless LAN controller.</div>
+          <div><strong>Production Flutter Fleet:</strong> MamaGhar (50K+ · 1.3K Reviews), Sports Injury Rehabilitation (50K+), TaxiMom (1K+ · 4.1★), ProLook, Spotiz &amp; Sitemax across Google Play &amp; App Store.</div>
+          <div><strong>Native Kotlin Systems:</strong> Spotiz Parking Manager with Bluetooth thermal POS receipt printing &amp; Getzy logistics workflows.</div>
+        </div>
+      </div>
+      <div class="res-sec" style="padding-top:10px;border-top:1px solid var(--line)">
+        <h5>Core Technical Capabilities</h5>
+        <div class="ptags"><span>Kotlin</span><span>Flutter</span><span>Android TV</span><span>Kiosk Mode</span><span>Custom Launcher</span><span>BLoC · GetX</span><span>ML Kit · TFLite</span><span>Google Maps · Mapbox</span><span>In-App Purchases</span><span>Firebase &amp; Cloud Console</span></div>
+      </div>
     </div>
   </div>
 </dialog>
@@ -1084,8 +1175,18 @@ upTime();setInterval(upTime,1000);
   deck.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flipNext(true);sched()}};
 })();
 
-/* Dual-Layer Stereo Hero 3D Avatar Parallax + Hero Counters + Bento Spotlight */
+/* Quick Boot Curtain + DevTools Console Flex + Dual-Layer Stereo Hero + Magnetic CTAs */
 (function(){
+  const boot=$('#boot');
+  if(boot){
+    let skip=false;
+    try{skip=sessionStorage.getItem('pp-booted')==='1'}catch(_){}
+    if(skip||matchMedia('(prefers-reduced-motion:reduce)').matches){boot.remove()}
+    else{
+      setTimeout(()=>{boot.classList.add('done');try{sessionStorage.setItem('pp-booted','1')}catch(_){};setTimeout(()=>boot.remove(),650)},560);
+    }
+  }
+  try{console.log('%c PARTH PATEL %c Android · Android TV · Flutter Engineer · github.com/Parth5087','background:#fafafa;color:#09090b;font-weight:700;padding:4px 8px;border-radius:4px 0 0 4px','background:#18181f;color:#4cc38a;padding:4px 8px;border-radius:0 4px 4px 0')}catch(_){}
   $$('.hero-metrics .cnt').forEach(el=>{
     if(el.dataset.done)return;el.dataset.done=1;
     const n=+el.dataset.n,s=el.dataset.s||'',t0=performance.now();
@@ -1101,12 +1202,22 @@ upTime();setInterval(upTime,1000);
       pmCard=card;pmX=e.clientX-r.left;pmY=e.clientY-r.top;
       if(!pmRaf)pmRaf=requestAnimationFrame(()=>{pmRaf=0;if(pmCard){pmCard.style.setProperty('--mx',pmX+'px');pmCard.style.setProperty('--my',pmY+'px')}});
     },{passive:true});
+    document.addEventListener('pointerover',e=>{
+      const card=e.target.closest('.pitem');if(!card||card._tilt)return;card._tilt=1;
+      card.addEventListener('pointermove',ev=>{
+        const r=card.getBoundingClientRect();
+        const rx=(((ev.clientY-r.top)/r.height)-.5)*-4.4;
+        const ry=(((ev.clientX-r.left)/r.width)-.5)*4.8;
+        card.style.transform=`perspective(900px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translate3d(0,-3px,0)`;
+      },{passive:true});
+      card.addEventListener('pointerleave',()=>{card.style.transform=''});
+    },{passive:true});
     if(hs&&av){
-      let avRaf=0,avX=0,avY=0,ry=0,rx=0,sx=0,sy=0;
+      let avRaf=0,avX=0,avY=0,ry=0,rx=0,sx=0,sy=0,nx=0,ny=0;
       hs.addEventListener('pointermove',e=>{
         const r=hs.getBoundingClientRect();
-        const nx=(e.clientX-r.left)/r.width-.5;
-        const ny=(e.clientY-r.top)/r.height-.5;
+        nx=(e.clientX-r.left)/r.width-.5;
+        ny=(e.clientY-r.top)/r.height-.5;
         avX=nx*13;avY=ny*-9;ry=nx*14;rx=ny*-10;sx=nx*-10;sy=ny*7;
         if(!avRaf)avRaf=requestAnimationFrame(()=>{
           avRaf=0;
@@ -1116,6 +1227,15 @@ upTime();setInterval(upTime,1000);
       },{passive:true});
       hs.addEventListener('pointerleave',()=>{av.style.transform='';if(sw)sw.style.transform=''});
     }
+    $$('.btn.pri').forEach(btn=>{
+      btn.addEventListener('pointermove',e=>{
+        const r=btn.getBoundingClientRect();
+        const tx=Math.max(-4,Math.min(4,((e.clientX-r.left)/r.width-.5)*10));
+        const ty=Math.max(-4,Math.min(4,((e.clientY-r.top)/r.height-.5)*10));
+        btn.style.transform=`translate3d(${tx.toFixed(1)}px,${ty.toFixed(1)}px,0)`;
+      },{passive:true});
+      btn.addEventListener('pointerleave',()=>{btn.style.transform=''});
+    });
   }
 })();
 
@@ -1145,6 +1265,15 @@ const SND_ON='<svg class="i" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4V5Z
 const SND_OFF='<svg class="i" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="m22 9-6 6m0-6 6 6"/></svg>';
 $('#burger').innerHTML='<svg class="i" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
 $('#shClose').innerHTML='<svg class="i" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>';
+const rCl=$('#resClose');if(rCl)rCl.innerHTML=$('#shClose').innerHTML;
+(function(){
+  const rs=$('#resSheet');
+  if(!rs)return;
+  const openRes=()=>{sfx('tick');if(!rs.open)rs.showModal()};
+  $$('[data-resume]').forEach(b=>b.onclick=openRes);
+  if(rCl)rCl.onclick=()=>rs.close();
+  rs.addEventListener('click',e=>{if(e.target===rs)rs.close()});
+})();
 
 const paintSnd=()=>{const b=$('#sndBtn');b.innerHTML=sndOn?SND_ON:SND_OFF;b.classList.toggle('snd-on',sndOn);b.setAttribute('aria-pressed',sndOn)};
 paintSnd();
@@ -1214,20 +1343,20 @@ $('#thmBtn').onclick=()=>{const r=$('#thmBtn').getBoundingClientRect();switchThe
 const hdrEl=$('header'),progEl=$('#prog');
 let lastY=scrollY,scRaf=0,mqT=0;
 function boostMarquee(vel){
-  const mt=$('#mtrack'),anim=mt&&mt.getAnimations?mt.getAnimations()[0]:null;
-  if(!anim||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
-  anim.playbackRate=1+Math.min(3.5,Math.abs(vel)*0.07);
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  const rate=1+Math.min(3.5,Math.abs(vel)*0.07);
+  $$('.mtrack').forEach(mt=>{const a=mt.getAnimations&&mt.getAnimations()[0];if(a)a.playbackRate=rate});
   clearTimeout(mqT);
-  mqT=setTimeout(()=>{try{anim.playbackRate=1}catch(_){}},140);
+  mqT=setTimeout(()=>{$$('.mtrack').forEach(mt=>{try{const a=mt.getAnimations&&mt.getAnimations()[0];if(a)a.playbackRate=1}catch(_){}})},140);
 }
 function onScrollFrame(){
   scRaf=0;
   const y=scrollY,dy=y-lastY,h=document.documentElement.scrollHeight-innerHeight;
-  if(h>0)progEl.style.transform=`scaleX(${Math.min(1,y/h)})`;
+  if(h>0){const sp=Math.min(1,y/h);progEl.style.transform=`scaleX(${sp})`;document.documentElement.style.setProperty('--sp',sp.toFixed(3))}
   document.documentElement.style.setProperty('--hs',Math.min(1,Math.max(0,y/360)).toFixed(3));
   hdrEl.classList.toggle('hdr-stuck',y>24);
   const menuOpen=$('#menu').classList.contains('open');
-  const dlgOpen=($('#sheet')&&$('#sheet').open)||($('#lb')&&$('#lb').open);
+  const dlgOpen=($('#sheet')&&$('#sheet').open)||($('#lb')&&$('#lb').open)||($('#resSheet')&&$('#resSheet').open);
   if(y<120||menuOpen||dlgOpen){hdrEl.classList.remove('hdr-hide')}
   else if(dy>8&&y>260){hdrEl.classList.add('hdr-hide')}
   else if(dy<-6){hdrEl.classList.remove('hdr-hide')}
@@ -1251,14 +1380,47 @@ function moveGlider(gl,target){
   gl.classList.add('vis');
 }
 
-/* Hero Marquee */
+/* Continuous Kinetic Editorial Ticker + Interactive Overview Architecture */
 (function(){
-  const items=['Kotlin','Flutter','Android TV','Kiosk Mode','Custom Launcher','ExoPlayer','CameraX','ML Kit & TFLite','Google Maps','Mapbox','Background GPS','Push Notifications','In-App Purchases','Bluetooth Printing','Google Cloud Console','Firebase Console'];
-  const row=[...items,...items].map(x=>`<span class="mitem"><i></i>${x}</span>`).join('');
+  const items=[
+    ['Kotlin Android',0],['Flutter Cross-Platform',1],['Android TV Kiosk',0],
+    ['Custom Launchers',1],['Edge AI · ML Kit',0],['Google Maps & GPS',1],
+    ['Bluetooth POS',0],['50K+ Downloads',1],['10 Shipped Apps',0]
+  ];
+  const row=[...items,...items].map(([t,h])=>`<span class="mitem${h?' hol':''}">${t}<i></i></span>`).join('');
   $('#mtrack').innerHTML=row;
+
+  const ARCH={
+    ui:{label:'Presentation Layer',txt:'Responsive Kotlin XML / TV 10-ft focus layouts & adaptive Flutter widget trees targeting 60fps.'},
+    state:{label:'State & System Layer',txt:'BLoC, GetX & Provider reactive flows paired with Android Custom Default Launchers & Room offline cache.'},
+    edge:{label:'Edge & Cloud Delivery',txt:'Foreground/background GPS, on-device ML Kit / TFLite, Bluetooth POS printing, Play Billing & Firebase.'}
+  };
+  const showArch=k=>{
+    const d=ARCH[k]||ARCH.ui;
+    $$('#archNodes .anode').forEach(b=>{const on=b.dataset.arch===k;b.classList.toggle('on',on);b.setAttribute('aria-selected',on)});
+    if($('#archDetail'))$('#archDetail').innerHTML=`<b>${d.label}:</b> ${d.txt}`;
+  };
+  if($('#archNodes')){
+    showArch('ui');
+    $('#archNodes').onclick=e=>{const b=e.target.closest('.anode');if(!b)return;sfx('tick');showArch(b.dataset.arch)};
+  }
 })();
 
 /* Render 10 Real Projects in Staggered 2-Col Editorial Grid + Sliding Filter Pill */
+const PLAY_SVG='<svg viewBox="0 0 24 24" aria-label="Google Play"><path d="M3 2.5v19l15.5-9.5L3 2.5Z"/></svg>';
+const IOS_SVG='<svg viewBox="0 0 24 24" aria-label="App Store"><path d="M16.4 13c0-2.1 1.7-3.1 1.8-3.2-1-1.4-2.5-1.6-3-1.7-1.3-.1-2.5.8-3.1.8-.6 0-1.6-.7-2.7-.7-1.4 0-2.7.8-3.4 2.1-1.5 2.5-.4 6.2 1 8.2.7 1 1.5 2 2.6 2 1 0 1.4-.7 2.7-.7 1.3 0 1.6.7 2.7.7 1.1 0 1.8-1 2.5-2 .8-1.1 1.1-2.2 1.1-2.3-.1 0-2.2-.8-2.2-3.2ZM14.3 6.5c.6-.7 1-1.7.9-2.7-.9 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6 1 .1 2-.5 2.5-1.2Z"/></svg>';
+const TV_SVG='<svg viewBox="0 0 24 24" aria-label="Android TV"><path d="M3 5h18a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm5 14h8v2H8v-2Z"/></svg>';
+const GIT_SVG='<svg viewBox="0 0 24 24" aria-label="Open Source"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c2-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.7.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg>';
+function platIcons(p){
+  const ic=[];
+  if(p.isTv)ic.push(TV_SVG);
+  if(p.play)ic.push(PLAY_SVG);
+  if(p.appstore)ic.push(IOS_SVG);
+  if(p.github)ic.push(GIT_SVG);
+  if(!ic.length&&p.cat==='Android')ic.push(PLAY_SVG);
+  return ic.join('');
+}
+
 const pf=$('#pfilters'),pg=$('#pgrid');
 pg.classList.add('is-all');
 const CATS=['All','Flutter','Android','Android TV'];
@@ -1287,7 +1449,7 @@ pg.innerHTML=PROJECTS.map((p,idx)=>{
   </div>
   <p class="p-desc">${p.subtitle}</p>
   <div class="ptags">${p.tech.slice(0,4).map(t=>`<span>${t}</span>`).join('')}</div>
-  <div class="p-cta"><span>View Case Study</span><span>→</span></div>
+  <div class="p-cta"><span class="p-plats">${platIcons(p)}</span><span>View Case Study →</span></div>
 </button>`}).join('');
 
 const fGlider=$('#fGlider');
@@ -1298,23 +1460,26 @@ addEventListener('resize',()=>{moveGlider(fGlider,$('.pill.on',pf));moveGlider($
 let curCat='All',viewMode='grid',wIdx=0,wItems=PROJECTS.slice();
 const wWrap=$('#wheelWrap'),wStage=$('#wheelStage'),wIdxEl=$('#wIdx'),vmGrid=$('#vmGrid'),vmWheel=$('#vmWheel');
 
-function layoutWheel(){
+function layoutWheel(dragPx=0){
   if(!wStage||!wItems.length)return;
   const n=wItems.length;
   wIdx=((wIdx%n)+n)%n;
-  if(wIdxEl)wIdxEl.textContent=`${wIdx+1} / ${n}`;
+  const gap=Math.min(235,(wStage.clientWidth||720)*0.39);
+  const shift=dragPx/Math.max(120,gap);
+  const liveCenter=((Math.round(wIdx-shift)%n)+n)%n;
+  if(wIdxEl)wIdxEl.textContent=`${liveCenter+1} / ${n}`;
   $$('.w-card',wStage).forEach((card,i)=>{
-    let diff=i-wIdx;
-    if(diff>n/2)diff-=n;
-    if(diff<-n/2)diff+=n;
-    const abs=Math.abs(diff),vis=abs<=3;
-    card.style.opacity=vis?(abs===0?'1':abs===1?'.82':abs===2?'.46':'.18'):'0';
-    card.style.pointerEvents=abs<=2?'auto':'none';
-    card.style.zIndex=String(20-abs);
-    card.classList.toggle('cur-w',abs===0);
-    const gap=Math.min(215,(wStage.clientWidth||720)*0.36);
-    const tx=diff*gap,tz=-abs*110,ry=-diff*22,sc=1-abs*0.09;
-    card.style.transform=`translate3d(${tx}px,0,${tz}px) rotateY(${ry}deg) scale(${sc})`;
+    let diff=(i-wIdx)+shift;
+    while(diff>n/2)diff-=n;
+    while(diff<-n/2)diff+=n;
+    const abs=Math.abs(diff),vis=abs<=3.1;
+    card.style.opacity=vis?(abs<=2.15?'1':String(Math.max(0,(3.1-abs)/0.95))):'0';
+    card.style.filter=abs<0.35?'none':`brightness(${Math.max(0.45,1-abs*0.2).toFixed(2)})`;
+    card.style.pointerEvents=abs<=2.15?'auto':'none';
+    card.style.zIndex=String(Math.round((10-abs)*10));
+    card.classList.toggle('cur-w',abs<0.35);
+    const tx=diff*gap,tz=-abs*115,ry=-diff*20,sc=Math.max(0.7,1-abs*0.09);
+    card.style.transform=`translate3d(${tx.toFixed(1)}px,0,${tz.toFixed(1)}px) rotateY(${ry.toFixed(1)}deg) scale(${sc.toFixed(3)})`;
   });
 }
 
@@ -1325,7 +1490,7 @@ function drawWheel(){
     const thumbs=(p.cardScreens||p.screens).slice(0,2);
     return `<div class="w-card" data-wi="${i}" data-id="${p.id}">
       <div class="w-meta"><strong style="font-size:15px">${p.name}</strong><span class="mono" style="font-size:11px;color:var(--mut)">${p.cat}</span></div>
-      <div class="w-prev">${thumbs.map((s,ti)=>`<img src="${s}" class="${p.isTv&&ti===0?'tvimg':''}" alt="${p.name}">`).join('')}</div>
+      <div class="w-prev">${thumbs.map((s,ti)=>`<img src="${s}" class="${p.isTv&&ti===0?'tvimg':''}" alt="${p.name}" draggable="false">`).join('')}</div>
       <div class="w-meta"><span style="font-size:12px;color:var(--ink-2)">${p.domain}</span><span class="mono" style="font-size:11.5px;color:var(--live)">Inspect ↗</span></div>
     </div>`;
   }).join('');
@@ -1333,7 +1498,10 @@ function drawWheel(){
 }
 drawWheel();
 
+let wDragMoved=false;
+wStage.addEventListener('dragstart',e=>e.preventDefault());
 wStage.onclick=e=>{
+  if(wDragMoved)return;
   const c=e.target.closest('.w-card');if(!c)return;
   const i=+c.dataset.wi;
   if(i===wIdx){sfx('tick');openSheet(c.dataset.id)}
@@ -1342,9 +1510,37 @@ wStage.onclick=e=>{
 $('#wPrev').onclick=()=>{sfx('tick');wIdx--;layoutWheel()};
 $('#wNext').onclick=()=>{sfx('tick');wIdx++;layoutWheel()};
 (function(){
-  let sx=0,drag=false,wLock=0;
-  wStage.addEventListener('touchstart',e=>{if(e.touches.length===1){sx=e.touches[0].clientX;drag=true}},{passive:true});
-  wStage.addEventListener('touchend',e=>{if(!drag)return;drag=false;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>42){sfx('tick');wIdx+=(dx<0?1:-1);layoutWheel()}},{passive:true});
+  let sx=0,lastX=0,dragPx=0,vel=0,down=false,wLock=0;
+  wStage.addEventListener('pointerdown',e=>{
+    if(e.button&&e.button!==0)return;
+    if(e.pointerType==='mouse')e.preventDefault();
+    down=true;wDragMoved=false;sx=e.clientX;lastX=e.clientX;dragPx=0;vel=0;
+    wStage.classList.add('dragging');
+  });
+  addEventListener('pointermove',e=>{
+    if(!down)return;
+    if(e.pointerType==='mouse'&&(e.buttons&1)===0){end();return}
+    const dx=e.clientX-lastX;vel=vel*0.4+dx*0.6;lastX=e.clientX;
+    dragPx=e.clientX-sx;
+    if(Math.abs(dragPx)>8)wDragMoved=true;
+    if(wDragMoved)layoutWheel(dragPx);
+  },{passive:true});
+  const end=()=>{
+    if(!down)return;
+    down=false;wStage.classList.remove('dragging');
+    if(wDragMoved){
+      const gap=Math.min(235,(wStage.clientWidth||720)*0.39);
+      const stepDelta=Math.round((-dragPx-vel*5)/Math.max(120,gap));
+      if(stepDelta!==0){sfx('tick');wIdx+=stepDelta}
+      layoutWheel(0);
+      setTimeout(()=>{wDragMoved=false},80);
+    }else{
+      wDragMoved=false;
+    }
+  };
+  addEventListener('pointerup',end);
+  addEventListener('pointercancel',end);
+  addEventListener('blur',end);
   wStage.addEventListener('wheel',e=>{
     if(viewMode!=='wheel'||Math.abs(e.deltaX)<=22||Math.abs(e.deltaX)<=Math.abs(e.deltaY))return;
     e.preventDefault();
@@ -1365,7 +1561,7 @@ function setViewMode(m){
   vmWheel.classList.toggle('on',m==='wheel');vmWheel.setAttribute('aria-selected',m==='wheel');
   pg.classList.toggle('hide',m!=='grid');
   wWrap.classList.toggle('hide',m!=='wheel');
-  if(m==='wheel')requestAnimationFrame(layoutWheel);
+  if(m==='wheel')requestAnimationFrame(()=>layoutWheel(0));
   requestAnimationFrame(onScrollFrame);
 }
 vmGrid.onclick=()=>setViewMode('grid');
@@ -1465,8 +1661,13 @@ function openSheet(id,updateHash=true){
     </div>
     ${gal}
     ${archHtml}
+    <div class="sh-stats">
+      <div class="sh-stat"><div class="sh-stat-k">Platform</div><div class="sh-stat-v">${p.type}</div></div>
+      <div class="sh-stat"><div class="sh-stat-k">Release / Scale</div><div class="sh-stat-v">${p.reach}</div></div>
+      <div class="sh-stat"><div class="sh-stat-k">Core Stack</div><div class="sh-stat-v">${p.tech.slice(0,3).join(' · ')}</div></div>
+    </div>
     <div><h4>Overview</h4><p>${p.problem}</p></div>
-    <div><h4>Engineering Contributions</h4><ul>${p.contributions.map(c=>`<li><strong>${c.label}:</strong> ${c.text}</li>`).join('')}</ul></div>
+    <div><h4>Engineering Contributions</h4><div class="sh-contribs">${p.contributions.map((c,ci)=>`<div class="sh-citem"><span class="sh-cnum">0${ci+1}</span><div class="sh-ctxt"><strong>${c.label}:</strong> ${c.text}</div></div>`).join('')}</div></div>
     <div class="ptags">${p.tech.map(t=>`<span>${t}</span>`).join('')}</div>
     <div class="sh-foot">
       <button class="btn sm" id="shPrevF" type="button">← ${prevP.name}</button>
